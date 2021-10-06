@@ -35,7 +35,6 @@ class MainViewModel @Inject constructor(repo: BookRepository): ViewModel() {
                 _message.value = "something went wrong"
             }
             _loading.value = false
-
         }
     }
 

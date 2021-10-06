@@ -6,7 +6,7 @@ import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class BookRepositoryTest {
+class BookRepositoryNetworkTest {
 
     private val api = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
