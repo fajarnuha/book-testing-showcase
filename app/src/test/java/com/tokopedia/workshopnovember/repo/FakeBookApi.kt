@@ -3,9 +3,11 @@ package com.tokopedia.workshopnovember.repo
 import com.tokopedia.workshopnovember.pojo.search.Doc
 import com.tokopedia.workshopnovember.pojo.search.SearchResponse
 import com.tokopedia.workshopnovember.repo.cloud.BookApi
+import kotlinx.coroutines.delay
 
 class FakeBookApi : BookApi {
     override suspend fun search(query: String): SearchResponse {
+        delay(2000)
         return SearchResponse(
             docs = listOf(
                 Doc(
