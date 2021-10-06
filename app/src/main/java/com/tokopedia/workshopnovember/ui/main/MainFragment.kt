@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,8 +36,10 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val editText = view.findViewById<EditText>(R.id.et_search)
+
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            val q = view.findViewById<EditText>(R.id.et_search).text.toString()
+            val q = editText.text.toString()
             viewModel.search(q)
         }
 
@@ -45,8 +50,17 @@ class MainFragment : Fragment() {
 
         viewModel.result.observe(viewLifecycleOwner) { list ->
             mAdapter.submitList(list)
-            Log.d("TAG", "onBindViewHolder: got ${list.size}")
         }
+
+        viewModel.loading.observe(viewLifecycleOwner) {
+            val visibility = if (it) View.VISIBLE else View.GONE
+            view.findViewById<ProgressBar>(R.id.progressBar).visibility = visibility
+        }
+
+        viewModel.message.observe(viewLifecycleOwner) {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
+
     }
 
 }

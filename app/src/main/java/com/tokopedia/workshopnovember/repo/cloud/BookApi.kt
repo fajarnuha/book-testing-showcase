@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface BookApi {
 
-    @GET("/search.json?limit=20")
+    @GET("/search.json?limit=25")
     suspend fun search(@Query("q") query: String): SearchResult
 
 }

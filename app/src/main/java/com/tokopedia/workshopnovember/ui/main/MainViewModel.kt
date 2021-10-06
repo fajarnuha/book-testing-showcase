@@ -4,22 +4,39 @@ import androidx.lifecycle.*
 import com.tokopedia.workshopnovember.pojo.search.SearchResultListUi
 import com.tokopedia.workshopnovember.repo.BookRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(repo: BookRepository): ViewModel() {
 
-    private val _query: MutableLiveData<String> = MutableLiveData()
+    private val _loading: MutableLiveData<Boolean> = MutableLiveData(false)
+    val loading: LiveData<Boolean> get() = _loading
 
+    // should be using SingleLiveEvent, but skipped for this project
+    private val _message: MutableLiveData<String> = MutableLiveData()
+    val message: LiveData<String> get() = _message
+
+    private val _query: MutableLiveData<String> = MutableLiveData()
     val result = _query.switchMap {
-        liveData { emit(repo.searchWithQuery(it).map {
-            SearchResultListUi(
-                it.isbn?.firstOrNull(),
-                "http://covers.openlibrary.org/b/isbn/${it.isbn?.firstOrNull()}-M.jpg",
-                it.title,
-                it.author_name?.firstOrNull()
-            )
-        }) }
+        liveData {
+            _loading.value = true
+            try {
+                val books = repo.searchWithQuery(it).map {
+                    SearchResultListUi(
+                        it.isbn?.firstOrNull(),
+                        "https://covers.openlibrary.org/b/isbn/${it.isbn?.firstOrNull()}-M.jpg",
+                        it.title,
+                        it.author_name?.firstOrNull()
+                    )
+                }
+                emit(books)
+            } catch (e: Exception) {
+                _message.value = "something went wrong"
+            }
+            _loading.value = false
+
+        }
     }
 
     fun search(q: String) {
