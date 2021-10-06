@@ -1,12 +1,12 @@
 package com.tokopedia.workshopnovember.repo.cloud
 
-import com.tokopedia.workshopnovember.pojo.search.SearchResult
+import com.tokopedia.workshopnovember.pojo.search.SearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface BookApi {
 
     @GET("/search.json?limit=25")
-    suspend fun search(@Query("q") query: String): SearchResult
+    suspend fun search(@Query("q") query: String): SearchResponse
 
 }
