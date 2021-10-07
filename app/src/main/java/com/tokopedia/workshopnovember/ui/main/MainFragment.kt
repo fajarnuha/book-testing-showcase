@@ -79,7 +79,11 @@ class MainFragment : Fragment() {
 
     }
 
-    private fun onClickItem(id: String) {
+    private fun onClickItem(id: String?) {
+        if (id == null) {
+            Toast.makeText(context, "ISBN is null", Toast.LENGTH_SHORT).show()
+            return
+        }
         navListener?.toDetail(id)
     }
 

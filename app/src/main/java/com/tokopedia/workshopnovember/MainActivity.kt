@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity(), Navigation {
     override fun toDetail(id: String) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, DetailFragment.newInstance(id))
-            .commitNow()
+            .addToBackStack(null)
+            .commit()
     }
 }

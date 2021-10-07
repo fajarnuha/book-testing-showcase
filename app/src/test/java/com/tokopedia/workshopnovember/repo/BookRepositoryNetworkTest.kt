@@ -39,7 +39,7 @@ class BookRepositoryNetworkTest {
 
     @Test
     fun `book id`() = runBlocking {
-        val id = "OL45883W"
+        val id = "9780140328721"
 
         val result = sut.getBookById(id)
 

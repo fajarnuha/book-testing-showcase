@@ -23,13 +23,7 @@ class MainViewModel @Inject constructor(repo: BookRepository): ViewModel() {
             _loading.value = true
             try {
                 val books = repo.searchWithQuery(it).map {
-                    SearchResultListUi(
-                        it.isbn?.firstOrNull(),
-                        "https://covers.openlibrary.org/b/isbn/${it.isbn?.firstOrNull()}-M.jpg",
-                        it.title,
-                        it.authorName?.firstOrNull(),
-                        it.key.replace("/works/", "")
-                    )
+                    it.toUiModel()
                 }
                 emit(books)
             } catch (e: Exception) {

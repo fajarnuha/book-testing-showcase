@@ -146,4 +146,14 @@ data class Doc(
     val type: String = "",
     @SerializedName("_version_")
     val version: Long = 0
-)
+) {
+    fun toUiModel(): SearchResultListUi {
+        return SearchResultListUi(
+            isbn?.firstOrNull(),
+            "https://covers.openlibrary.org/b/isbn/${isbn?.firstOrNull()}-M.jpg",
+            title,
+            authorName?.firstOrNull(),
+            key.replace("/works/", "")
+        )
+    }
+}

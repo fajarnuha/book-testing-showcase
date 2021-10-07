@@ -15,7 +15,7 @@ import com.tokopedia.workshopnovember.pojo.search.SearchResultListUi
 class SearchResultAdapter :
     ListAdapter<SearchResultListUi, SearchResultAdapter.SearchResultViewHolder>(DiffCallBack()) {
 
-    var listener: ((String) -> Unit)? = null
+    var listener: ((String?) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false)
@@ -24,7 +24,7 @@ class SearchResultAdapter :
         }
         return SearchResultViewHolder(view).apply {
             itemView.setOnClickListener {
-                listener?.invoke(currentList[adapterPosition].workId)
+                listener?.invoke(currentList[adapterPosition].isbn)
             }
         }
     }
