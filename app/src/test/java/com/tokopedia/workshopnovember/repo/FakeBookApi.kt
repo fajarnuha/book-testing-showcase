@@ -1,5 +1,6 @@
 package com.tokopedia.workshopnovember.repo
 
+import com.tokopedia.workshopnovember.pojo.book.BookResponse
 import com.tokopedia.workshopnovember.pojo.search.Doc
 import com.tokopedia.workshopnovember.pojo.search.SearchResponse
 import com.tokopedia.workshopnovember.repo.cloud.BookApi
@@ -18,5 +19,9 @@ class FakeBookApi : BookApi {
             q = query,
             numFound = 20,
         )
+    }
+
+    override suspend fun get(id: String): BookResponse {
+        TODO("Not yet implemented")
     }
 }

@@ -2,6 +2,7 @@ package com.tokopedia.workshopnovember.repo
 
 import com.tokopedia.workshopnovember.repo.cloud.BookApi
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import retrofit2.Retrofit
@@ -34,6 +35,15 @@ class BookRepositoryNetworkTest {
 
             assertEquals(25, result.size)
         }
+    }
+
+    @Test
+    fun `book id`() = runBlocking {
+        val id = "OL45883W"
+
+        val result = sut.getBookById(id)
+
+        print(result)
     }
 
 }

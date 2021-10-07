@@ -27,7 +27,8 @@ class MainViewModel @Inject constructor(repo: BookRepository): ViewModel() {
                         it.isbn?.firstOrNull(),
                         "https://covers.openlibrary.org/b/isbn/${it.isbn?.firstOrNull()}-M.jpg",
                         it.title,
-                        it.authorName?.firstOrNull()
+                        it.authorName?.firstOrNull(),
+                        it.key.replace("/works/", "")
                     )
                 }
                 emit(books)

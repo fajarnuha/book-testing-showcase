@@ -4,5 +4,6 @@ data class SearchResultListUi(
     val isbn: String?,
     val src: String,
     val title: String,
-    val author: String?
+    val author: String?,
+    val workId: String
 )

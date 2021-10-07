@@ -1,5 +1,6 @@
 package com.tokopedia.workshopnovember.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.tokopedia.workshopnovember.Navigation
 import com.tokopedia.workshopnovember.R
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +29,14 @@ class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModels()
     private val mAdapter = SearchResultAdapter()
+    private var navListener: Navigation? = null
+
+    override fun onAttach(context: Context) {
+        if (context is Navigation) {
+            navListener = context
+        }
+        super.onAttach(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +57,8 @@ class MainFragment : Fragment() {
             false
         }
 
+        mAdapter.listener = ::onClickItem
+
         with(view.findViewById<RecyclerView>(R.id.rv)) {
             layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
             adapter = mAdapter
@@ -65,6 +77,10 @@ class MainFragment : Fragment() {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
 
+    }
+
+    private fun onClickItem(id: String) {
+        navListener?.toDetail(id)
     }
 
 }
