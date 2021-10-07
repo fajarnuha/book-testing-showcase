@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -38,9 +39,12 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val editText = view.findViewById<EditText>(R.id.et_search)
 
-        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            val q = editText.text.toString()
-            viewModel.search(q)
+        editText.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.search(v.text.toString())
+                return@setOnEditorActionListener true
+            }
+            false
         }
 
         with(view.findViewById<RecyclerView>(R.id.rv)) {
