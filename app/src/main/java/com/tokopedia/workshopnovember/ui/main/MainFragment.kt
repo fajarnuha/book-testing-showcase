@@ -2,20 +2,17 @@ package com.tokopedia.workshopnovember.ui.main
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tokopedia.workshopnovember.Navigation
 import com.tokopedia.workshopnovember.R
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +45,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val editText = view.findViewById<EditText>(R.id.et_search)
+        val loadingView = view.findViewById<ProgressBar>(R.id.progressBar)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rv)
 
         editText.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -59,7 +58,7 @@ class MainFragment : Fragment() {
 
         mAdapter.listener = ::onClickItem
 
-        with(view.findViewById<RecyclerView>(R.id.rv)) {
+        with(recyclerView) {
             layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
             adapter = mAdapter
         }
@@ -70,7 +69,7 @@ class MainFragment : Fragment() {
 
         viewModel.loading.observe(viewLifecycleOwner) {
             val visibility = if (it) View.VISIBLE else View.GONE
-            view.findViewById<ProgressBar>(R.id.progressBar).visibility = visibility
+            loadingView.visibility = visibility
         }
 
         viewModel.message.observe(viewLifecycleOwner) {
