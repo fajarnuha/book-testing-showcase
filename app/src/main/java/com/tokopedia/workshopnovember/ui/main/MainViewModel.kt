@@ -1,7 +1,6 @@
 package com.tokopedia.workshopnovember.ui.main
 
 import androidx.lifecycle.*
-import com.tokopedia.workshopnovember.pojo.search.SearchResultListUi
 import com.tokopedia.workshopnovember.repo.BookRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.lang.Exception

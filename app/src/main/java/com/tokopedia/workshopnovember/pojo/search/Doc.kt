@@ -147,8 +147,8 @@ data class Doc(
     @SerializedName("_version_")
     val version: Long = 0
 ) {
-    fun toUiModel(): SearchResultListUi {
-        return SearchResultListUi(
+    fun toUiModel(): BookUiModel {
+        return BookUiModel(
             isbn?.firstOrNull(),
             "https://covers.openlibrary.org/b/isbn/${isbn?.firstOrNull()}-M.jpg",
             title,

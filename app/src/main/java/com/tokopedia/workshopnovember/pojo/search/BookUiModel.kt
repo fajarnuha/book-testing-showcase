@@ -1,6 +1,6 @@
 package com.tokopedia.workshopnovember.pojo.search
 
-data class SearchResultListUi(
+data class BookUiModel(
     val isbn: String?,
     val src: String,
     val title: String,

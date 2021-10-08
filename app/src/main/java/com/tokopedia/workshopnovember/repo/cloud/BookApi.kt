@@ -1,6 +1,5 @@
 package com.tokopedia.workshopnovember.repo.cloud
 
-import com.tokopedia.workshopnovember.pojo.book.BookResponse
 import com.tokopedia.workshopnovember.pojo.isbn.IsbnResponse
 import com.tokopedia.workshopnovember.pojo.search.SearchResponse
 import retrofit2.http.GET
