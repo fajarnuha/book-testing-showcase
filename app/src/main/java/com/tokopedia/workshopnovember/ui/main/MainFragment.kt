@@ -25,7 +25,7 @@ class MainFragment : Fragment() {
     }
 
     private val viewModel: MainViewModel by viewModels()
-    private val mAdapter = SearchResultAdapter()
+    private val mAdapter = SearchResultAdapter(listener = ::onClickItem)
     private var navListener: Navigation? = null
 
     override fun onAttach(context: Context) {
@@ -55,8 +55,6 @@ class MainFragment : Fragment() {
             }
             false
         }
-
-        mAdapter.listener = ::onClickItem
 
         with(recyclerView) {
             layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)

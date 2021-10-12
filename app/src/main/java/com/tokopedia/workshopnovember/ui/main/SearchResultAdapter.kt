@@ -12,10 +12,8 @@ import com.bumptech.glide.Glide
 import com.tokopedia.workshopnovember.R
 import com.tokopedia.workshopnovember.pojo.search.BookUiModel
 
-class SearchResultAdapter :
+class SearchResultAdapter(private var listener: ((String?) -> Unit)? = null) :
     ListAdapter<BookUiModel, SearchResultAdapter.SearchResultViewHolder>(DiffCallBack()) {
-
-    var listener: ((String?) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false)
