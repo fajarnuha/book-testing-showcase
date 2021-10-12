@@ -1,12 +1,10 @@
-package com.tokopedia.workshopnovember.repo
+package com.tokopedia.workshopnovember.data
 
 import com.tokopedia.workshopnovember.pojo.search.SearchResponse
-import com.tokopedia.workshopnovember.repo.cloud.BookApi
+import com.tokopedia.workshopnovember.data.cloud.BookApi
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test

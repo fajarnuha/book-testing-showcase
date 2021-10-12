@@ -1,16 +1,21 @@
 package com.tokopedia.workshopnovember.di
 
-import com.tokopedia.workshopnovember.repo.cloud.BookApi
+import android.content.Context
+import androidx.room.Room
+import com.tokopedia.workshopnovember.data.cloud.BookApi
+import com.tokopedia.workshopnovember.data.local.AppDatabase
+import com.tokopedia.workshopnovember.data.local.FavDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
+object DataModule {
 
     @Provides
     fun provideRetrofit(): Retrofit {
@@ -23,4 +28,15 @@ object NetworkModule {
     fun provideBookApi(retrofit: Retrofit): BookApi {
         return retrofit.create(BookApi::class.java)
     }
+
+    @Provides
+    fun provideDb(@ApplicationContext context: Context): AppDatabase {
+        return Room.databaseBuilder(context, AppDatabase::class.java, "appDb").build()
+    }
+
+    @Provides
+    fun provideFavDao(db: AppDatabase): FavDao {
+        return db.favDao()
+    }
+
 }

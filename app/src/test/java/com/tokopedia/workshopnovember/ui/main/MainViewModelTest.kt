@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.tokopedia.workshopnovember.MainCoroutineRule
 import com.tokopedia.workshopnovember.getOrAwaitValue
 import com.tokopedia.workshopnovember.pojo.search.Doc
-import com.tokopedia.workshopnovember.repo.BookRepository
+import com.tokopedia.workshopnovember.data.BookRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

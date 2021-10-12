@@ -1,7 +1,7 @@
 package com.tokopedia.workshopnovember.ui.main
 
 import androidx.lifecycle.*
-import com.tokopedia.workshopnovember.repo.BookRepository
+import com.tokopedia.workshopnovember.data.BookRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.lang.Exception
 import javax.inject.Inject

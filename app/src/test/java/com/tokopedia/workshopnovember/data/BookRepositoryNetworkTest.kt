@@ -1,8 +1,7 @@
-package com.tokopedia.workshopnovember.repo
+package com.tokopedia.workshopnovember.data
 
-import com.tokopedia.workshopnovember.repo.cloud.BookApi
+import com.tokopedia.workshopnovember.data.cloud.BookApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import retrofit2.Retrofit

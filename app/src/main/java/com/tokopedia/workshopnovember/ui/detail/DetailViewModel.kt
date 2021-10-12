@@ -2,7 +2,7 @@ package com.tokopedia.workshopnovember.ui.detail
 
 import androidx.lifecycle.*
 import com.tokopedia.workshopnovember.pojo.search.BookUiModel
-import com.tokopedia.workshopnovember.repo.BookRepository
+import com.tokopedia.workshopnovember.data.BookRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.tokopedia.workshopnovember.repo.cloud
+package com.tokopedia.workshopnovember.data.cloud
 
 import com.tokopedia.workshopnovember.pojo.isbn.IsbnResponse
 import com.tokopedia.workshopnovember.pojo.search.SearchResponse
