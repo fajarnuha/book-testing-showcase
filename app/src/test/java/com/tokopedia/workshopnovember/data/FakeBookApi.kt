@@ -1,9 +1,9 @@
 package com.tokopedia.workshopnovember.data
 
-import com.tokopedia.workshopnovember.pojo.book.BookResponse
 import com.tokopedia.workshopnovember.pojo.search.Doc
 import com.tokopedia.workshopnovember.pojo.search.SearchResponse
 import com.tokopedia.workshopnovember.data.cloud.BookApi
+import com.tokopedia.workshopnovember.pojo.isbn.IsbnResponse
 import kotlinx.coroutines.delay
 
 class FakeBookApi : BookApi {
@@ -21,7 +21,7 @@ class FakeBookApi : BookApi {
         )
     }
 
-    override suspend fun get(id: String): BookResponse {
+    override suspend fun get(id: String): IsbnResponse {
         TODO("Not yet implemented")
     }
 }
