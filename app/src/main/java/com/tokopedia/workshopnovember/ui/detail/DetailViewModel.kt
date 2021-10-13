@@ -17,10 +17,8 @@ class DetailViewModel @Inject constructor(private val repository: BookRepository
         liveData {
             emit(DetailState.Loading)
             try {
-                Log.d("BookShowcase", it)
                 val result = repository.getBookById(it).toUiModel()
                 repository.getFavorites().collect { favs ->
-                    Log.d("BookShowcase", "${favs.map { it.isbnId }}")
                     val isFav = favs.map { it.isbnId }.contains(result.isbn)
                     emit(DetailState.Detail(result.copy(isFavorite = isFav)))
                 }
