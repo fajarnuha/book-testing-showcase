@@ -2,6 +2,7 @@ package com.tokopedia.workshopnovember.data
 
 import com.tokopedia.workshopnovember.data.cloud.BookApi
 import com.tokopedia.workshopnovember.data.local.FavDao
+import com.tokopedia.workshopnovember.pojo.search.Doc
 import com.tokopedia.workshopnovember.pojo.search.SearchResponse
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -28,13 +29,14 @@ class BookRepositoryTest {
 
     @Test
     fun `given success response then return list of docs`() = runBlockingTest {
-        val q = "foo"
-        val fakeResponse = SearchResponse(q = q)
-        coEvery { api.search(q) } returns fakeResponse
+        val query = "foo"
+        val expectedBook = Doc(title = "Harry Potter")
+        val fakeResponse = SearchResponse(q = query, docs = listOf(expectedBook))
+        coEvery { api.search(query) } returns fakeResponse
 
-        val actual = sut.searchWithQuery(q)
+        val actual = sut.searchWithQuery(query)
 
-        assertEquals(fakeResponse.docs, actual)
+        assertEquals(expectedBook, actual)
     }
 
 }
