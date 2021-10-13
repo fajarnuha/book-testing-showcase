@@ -1,21 +1,30 @@
 package com.tokopedia.workshopnovember.ui.detail
 
+import android.util.Log
 import androidx.lifecycle.*
-import com.tokopedia.workshopnovember.pojo.search.BookUiModel
 import com.tokopedia.workshopnovember.data.BookRepository
+import com.tokopedia.workshopnovember.pojo.search.BookUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(private val repository: BookRepository) : ViewModel() {
 
     private val _id: MutableLiveData<String> = MutableLiveData()
-    val book: LiveData<DetailState> = _id.switchMap {
+    val state: LiveData<DetailState> = _id.switchMap {
         liveData {
             emit(DetailState.Loading)
             try {
+                Log.d("BookShowcase", it)
                 val result = repository.getBookById(it).toUiModel()
-                emit(DetailState.Detail(result))
+                repository.getFavorites().collect { favs ->
+                    Log.d("BookShowcase", "${favs.map { it.isbnId }}")
+                    val isFav = favs.map { it.isbnId }.contains(result.isbn)
+                    emit(DetailState.Detail(result.copy(isFavorite = isFav)))
+                }
+
             } catch (e: Exception) {
                 emit(DetailState.Error(e.message ?: "Something went wrong"))
             }
@@ -24,6 +33,12 @@ class DetailViewModel @Inject constructor(private val repository: BookRepository
 
     fun setId(id: String) {
         _id.value = id
+    }
+
+    fun setFavorite(isbn: String, state: Boolean) {
+        viewModelScope.launch {
+            repository.setFavorite(isbn, state)
+        }
     }
 
 }

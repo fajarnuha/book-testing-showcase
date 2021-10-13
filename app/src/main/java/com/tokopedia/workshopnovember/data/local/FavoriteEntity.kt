@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 @Entity
 data class FavoriteEntity(
     @PrimaryKey(autoGenerate = true) val id: Long? = null,
-    @ColumnInfo(name = "bookId") val bookId: String,
+    @ColumnInfo(name = "isbnId") val isbnId: String,
 )

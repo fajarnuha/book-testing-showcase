@@ -5,5 +5,6 @@ data class BookUiModel(
     val src: String,
     val title: String,
     val author: String?,
-    val workId: String
+    val workId: String,
+    val isFavorite: Boolean = false,
 )
