@@ -9,17 +9,17 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class BookRepository @Inject constructor(
-    private val api: BookApi,
+    private val bookApi: BookApi,
     private val favDao: FavDao,
 ) {
 
     suspend fun searchWithQuery(query: String): List<Doc> {
-        val cloudResult = api.search(query)
+        val cloudResult = bookApi.search(query)
         return cloudResult.docs
     }
 
     suspend fun getBookById(id: String): IsbnResponse {
-        return api.get(id)
+        return bookApi.get(id)
     }
 
     suspend fun setFavorite(id: String, checked: Boolean) {
