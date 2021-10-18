@@ -31,8 +31,8 @@ class BookRepositoryTest {
     fun `given success response then return list of docs`() = runBlockingTest {
         // given
         val query = "foo"
-        val expectedBook = Doc(title = "Harry Potter")
-        val fakeResponse = SearchResponse(q = query, docs = listOf(expectedBook))
+        val expectedBook = listOf(Doc(title = "Harry Potter"))
+        val fakeResponse = SearchResponse(q = query, docs = expectedBook)
         coEvery { api.search(query) } returns fakeResponse
 
         // when
