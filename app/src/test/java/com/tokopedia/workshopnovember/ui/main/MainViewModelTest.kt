@@ -1,10 +1,12 @@
 package com.tokopedia.workshopnovember.ui.main
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.tokopedia.workshopnovember.MainCoroutineRule
 import com.tokopedia.workshopnovember.getOrAwaitValue
 import com.tokopedia.workshopnovember.pojo.search.Doc
 import com.tokopedia.workshopnovember.data.BookRepository
+import com.tokopedia.workshopnovember.pojo.search.BookUiModel
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -43,5 +45,22 @@ class MainViewModelTest {
         assertThat(sut.result.getOrAwaitValue().first().title, `is`(list.first().title))
     }
 
+    @Test
+    fun `search will show loading before showing results`() {
+        val bookListObserver = Observer<List<BookUiModel>> { }
+        sut.result.observeForever(bookListObserver)
+
+        mainCoroutineRule.pauseDispatcher()
+
+        sut.search("harry")
+
+        assertThat(sut.loading.getOrAwaitValue(), `is`(true))
+
+        mainCoroutineRule.resumeDispatcher()
+
+        assertThat(sut.loading.getOrAwaitValue(), `is`(false))
+
+        sut.result.removeObserver(bookListObserver)
+    }
 
 }
