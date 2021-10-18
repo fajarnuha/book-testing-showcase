@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tokopedia.workshopnovember.Navigation
 import com.tokopedia.workshopnovember.R
+import com.tokopedia.workshopnovember.getViewVisibility
 import com.tokopedia.workshopnovember.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -59,7 +60,12 @@ class MainFragment : Fragment() {
         }
 
         with(recyclerView) {
-            layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
+            layoutManager = GridLayoutManager(
+                requireContext(),
+                3,
+                RecyclerView.VERTICAL,
+                false
+            )
             adapter = mAdapter
         }
 
@@ -67,9 +73,9 @@ class MainFragment : Fragment() {
             mAdapter.submitList(list)
         }
 
-        viewModel.loading.observe(viewLifecycleOwner) {
-            val visibility = if (it) View.VISIBLE else View.GONE
-            loadingView.visibility = visibility
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            loadingView.visibility = getViewVisibility(isLoading)
+            recyclerView.visibility = getViewVisibility(!isLoading)
         }
 
         viewModel.message.observe(viewLifecycleOwner) {
