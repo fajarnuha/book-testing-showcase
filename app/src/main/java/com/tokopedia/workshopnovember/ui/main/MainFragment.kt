@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tokopedia.workshopnovember.Navigation
 import com.tokopedia.workshopnovember.R
+import com.tokopedia.workshopnovember.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,7 +50,8 @@ class MainFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv)
 
         editText.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            if (isSearchAction(actionId)) {
+                hideKeyboard(context, editText)
                 viewModel.search(v.text.toString())
                 return@setOnEditorActionListener true
             }
@@ -75,6 +77,10 @@ class MainFragment : Fragment() {
         }
 
     }
+
+    private fun isSearchAction(actionId: Int) =
+        actionId == EditorInfo.IME_ACTION_SEARCH
+            || actionId == EditorInfo.IME_ACTION_UNSPECIFIED
 
     private fun onClickItem(id: String?) {
         if (id == null) {
