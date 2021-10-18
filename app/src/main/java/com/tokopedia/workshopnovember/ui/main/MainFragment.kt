@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tokopedia.workshopnovember.Navigation
 import com.tokopedia.workshopnovember.R
+import com.tokopedia.workshopnovember.getViewVisibility
+import com.tokopedia.workshopnovember.hideKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,7 +51,8 @@ class MainFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv)
 
         editText.setOnEditorActionListener { v, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            if (isSearchAction(actionId)) {
+                hideKeyboard(context, editText)
                 viewModel.search(v.text.toString())
                 return@setOnEditorActionListener true
             }
@@ -57,7 +60,12 @@ class MainFragment : Fragment() {
         }
 
         with(recyclerView) {
-            layoutManager = GridLayoutManager(requireContext(), 3, RecyclerView.VERTICAL, false)
+            layoutManager = GridLayoutManager(
+                requireContext(),
+                3,
+                RecyclerView.VERTICAL,
+                false
+            )
             adapter = mAdapter
         }
 
@@ -65,9 +73,9 @@ class MainFragment : Fragment() {
             mAdapter.submitList(list)
         }
 
-        viewModel.loading.observe(viewLifecycleOwner) {
-            val visibility = if (it) View.VISIBLE else View.GONE
-            loadingView.visibility = visibility
+        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+            loadingView.visibility = getViewVisibility(isLoading)
+            recyclerView.visibility = getViewVisibility(!isLoading)
         }
 
         viewModel.message.observe(viewLifecycleOwner) {
@@ -75,6 +83,10 @@ class MainFragment : Fragment() {
         }
 
     }
+
+    private fun isSearchAction(actionId: Int) =
+        actionId == EditorInfo.IME_ACTION_SEARCH
+            || actionId == EditorInfo.IME_ACTION_UNSPECIFIED
 
     private fun onClickItem(id: String?) {
         if (id == null) {
