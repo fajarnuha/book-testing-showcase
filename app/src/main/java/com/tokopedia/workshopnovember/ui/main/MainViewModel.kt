@@ -18,8 +18,9 @@ class MainViewModel @Inject constructor(repo: BookRepository): ViewModel() {
 
     private val _query: MutableLiveData<String> = MutableLiveData()
     val result = _query.switchMap {
+        _loading.value = true
+
         liveData {
-            _loading.value = true
             try {
                 val books = repo.searchWithQuery(it).map {
                     it.toUiModel()
