@@ -23,7 +23,7 @@ class MainViewModel @Inject constructor(repo: BookRepository): ViewModel() {
         liveData {
             try {
                 val books = repo.searchWithQuery(it).map {
-                    it.toUiModel()
+                    it.toBookEntity()
                 }
                 emit(books)
             } catch (e: Exception) {

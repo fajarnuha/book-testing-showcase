@@ -2,7 +2,7 @@ package com.tokopedia.workshopnovember.pojo.isbn
 
 
 import com.google.gson.annotations.SerializedName
-import com.tokopedia.workshopnovember.pojo.search.BookUiModel
+import com.tokopedia.workshopnovember.pojo.BookEntity
 
 data class IsbnResponse(
     @SerializedName("authors")
@@ -52,8 +52,8 @@ data class IsbnResponse(
     @SerializedName("works")
     val works: List<Work> = listOf()
 ) {
-    fun toUiModel(): BookUiModel {
-        return BookUiModel(
+    fun toBookEntity(): BookEntity {
+        return BookEntity(
             isbn13.firstOrNull(),
             "https://covers.openlibrary.org/b/isbn/${isbn13.first()}-M.jpg",
             title,

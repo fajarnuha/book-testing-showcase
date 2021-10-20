@@ -1,6 +1,6 @@
-package com.tokopedia.workshopnovember.pojo.search
+package com.tokopedia.workshopnovember.pojo
 
-data class BookUiModel(
+data class BookEntity(
     val isbn: String?,
     val src: String,
     val title: String,
