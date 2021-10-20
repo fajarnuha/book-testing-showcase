@@ -1,10 +1,13 @@
 package com.tokopedia.workshopnovember.pojo
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class BookEntity(
-    val isbn: String?,
+    @PrimaryKey
+    val isbn: String,
     val src: String,
     val title: String,
     val author: String?,
-    val workId: String,
-    val isFavorite: Boolean = false,
 )

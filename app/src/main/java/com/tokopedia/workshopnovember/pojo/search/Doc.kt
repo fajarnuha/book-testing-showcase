@@ -150,11 +150,10 @@ data class Doc(
 ) {
     fun toBookEntity(): BookEntity {
         return BookEntity(
-            isbn?.firstOrNull(),
+            isbn?.first() ?: "",
             "https://covers.openlibrary.org/b/isbn/${isbn?.firstOrNull()}-M.jpg",
             title,
             authorName?.firstOrNull(),
-            key.replace("/works/", "")
         )
     }
 }

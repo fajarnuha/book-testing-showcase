@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.tokopedia.workshopnovember.R
 import com.tokopedia.workshopnovember.pojo.BookEntity
 
-class SearchResultAdapter(private var listener: ((String?) -> Unit)? = null) :
+class SearchResultAdapter(private var listener: ((String) -> Unit)? = null) :
     ListAdapter<BookEntity, SearchResultAdapter.SearchResultViewHolder>(DiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {

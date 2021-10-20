@@ -54,11 +54,10 @@ data class IsbnResponse(
 ) {
     fun toBookEntity(): BookEntity {
         return BookEntity(
-            isbn13.firstOrNull(),
+            isbn13.first(),
             "https://covers.openlibrary.org/b/isbn/${isbn13.first()}-M.jpg",
             title,
             authors.firstOrNull()?.key,
-            key.replace("/works/", "")
         )
     }
 }

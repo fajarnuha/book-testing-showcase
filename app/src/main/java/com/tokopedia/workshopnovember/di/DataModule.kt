@@ -31,7 +31,8 @@ object DataModule {
 
     @Provides
     fun provideDb(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "appDb").build()
+            return Room.databaseBuilder(context, AppDatabase::class.java, "appDb")
+            .fallbackToDestructiveMigration().build()
     }
 
     @Provides

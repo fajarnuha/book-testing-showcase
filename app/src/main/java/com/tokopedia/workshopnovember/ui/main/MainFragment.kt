@@ -88,9 +88,9 @@ class MainFragment : Fragment() {
         actionId == EditorInfo.IME_ACTION_SEARCH
             || actionId == EditorInfo.IME_ACTION_UNSPECIFIED
 
-    private fun onClickItem(id: String?) {
-        if (id == null) {
-            Toast.makeText(context, "ISBN is null", Toast.LENGTH_SHORT).show()
+    private fun onClickItem(id: String) {
+        if (id.isEmpty()) {
+            Toast.makeText(context, "ISBN is empty", Toast.LENGTH_SHORT).show()
             return
         }
         navListener?.toDetail(id)

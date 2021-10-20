@@ -3,7 +3,7 @@ package com.tokopedia.workshopnovember.data
 import com.tokopedia.workshopnovember.data.cloud.BookApi
 import com.tokopedia.workshopnovember.data.local.FavDao
 import com.tokopedia.workshopnovember.data.local.FavoriteEntity
-import com.tokopedia.workshopnovember.pojo.isbn.IsbnResponse
+import com.tokopedia.workshopnovember.pojo.BookEntity
 import com.tokopedia.workshopnovember.pojo.search.Doc
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -18,8 +18,8 @@ class BookRepository @Inject constructor(
         return cloudResult.docs
     }
 
-    suspend fun getBookById(id: String): IsbnResponse {
-        return bookApi.get(id)
+    suspend fun getBookById(id: String): BookEntity {
+        return bookApi.get(id).toBookEntity()
     }
 
     suspend fun setFavorite(id: String, checked: Boolean) {
