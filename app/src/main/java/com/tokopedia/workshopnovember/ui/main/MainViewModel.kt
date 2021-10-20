@@ -13,7 +13,6 @@ class MainViewModel @Inject constructor(repo: BookRepository): ViewModel() {
     private val _loading: MutableLiveData<Boolean> = MutableLiveData(false)
     val loading: LiveData<Boolean> get() = _loading
 
-    // should be using SingleLiveEvent, but skipped for this project
     private val _message: SingleLiveEvent<String> = SingleLiveEvent()
     val message: LiveData<String> get() = _message
 
