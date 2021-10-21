@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.tokopedia.workshopnovember.data.cloud.BookApi
 import com.tokopedia.workshopnovember.data.local.AppDatabase
+import com.tokopedia.workshopnovember.data.local.BookDao
 import com.tokopedia.workshopnovember.data.local.FavDao
 import dagger.Module
 import dagger.Provides
@@ -31,13 +32,18 @@ object DataModule {
 
     @Provides
     fun provideDb(@ApplicationContext context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, "appDb")
+        return Room.databaseBuilder(context, AppDatabase::class.java, "appDb")
             .fallbackToDestructiveMigration().build()
     }
 
     @Provides
     fun provideFavDao(db: AppDatabase): FavDao {
         return db.favDao()
+    }
+
+    @Provides
+    fun provideBookDao(db: AppDatabase): BookDao {
+        return db.bookDao()
     }
 
 }

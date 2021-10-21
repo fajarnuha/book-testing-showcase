@@ -58,6 +58,7 @@ data class IsbnResponse(
             "https://covers.openlibrary.org/b/isbn/${isbn13.first()}-M.jpg",
             title,
             authors.firstOrNull()?.key,
+            System.currentTimeMillis(),
         )
     }
 }

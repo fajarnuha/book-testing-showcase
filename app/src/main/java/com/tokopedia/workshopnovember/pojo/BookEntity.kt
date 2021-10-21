@@ -10,4 +10,5 @@ data class BookEntity(
     val src: String,
     val title: String,
     val author: String?,
+    val timestamp: Long,
 )

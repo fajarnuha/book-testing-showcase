@@ -1,6 +1,7 @@
 package com.tokopedia.workshopnovember.data
 
 import com.tokopedia.workshopnovember.data.cloud.BookApi
+import com.tokopedia.workshopnovember.data.local.BookDao
 import com.tokopedia.workshopnovember.data.local.FavDao
 import com.tokopedia.workshopnovember.pojo.search.Doc
 import com.tokopedia.workshopnovember.pojo.search.SearchResponse
@@ -17,14 +18,16 @@ class BookRepositoryTest {
 
     private lateinit var api: BookApi
     private lateinit var mockedDao: FavDao
+    private lateinit var fakeBookDao: BookDao
     private lateinit var sut: BookRepository
 
     @Before
     fun setup() {
         api = mockk()
         mockedDao = mockk()
+        fakeBookDao = mockk()
 
-        sut = BookRepository(api, mockedDao)
+        sut = BookRepository(api, fakeBookDao, mockedDao)
     }
 
     @Test
