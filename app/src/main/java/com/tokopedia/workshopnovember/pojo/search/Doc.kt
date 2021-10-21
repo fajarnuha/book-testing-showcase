@@ -2,6 +2,7 @@ package com.tokopedia.workshopnovember.pojo.search
 
 
 import com.google.gson.annotations.SerializedName
+import com.tokopedia.workshopnovember.pojo.BookEntity
 
 data class Doc(
     @SerializedName("author_alternative_name")
@@ -147,13 +148,13 @@ data class Doc(
     @SerializedName("_version_")
     val version: Long = 0
 ) {
-    fun toUiModel(): BookUiModel {
-        return BookUiModel(
-            isbn?.firstOrNull(),
+    fun toBookEntity(): BookEntity {
+        return BookEntity(
+            isbn?.first() ?: "",
             "https://covers.openlibrary.org/b/isbn/${isbn?.firstOrNull()}-M.jpg",
             title,
             authorName?.firstOrNull(),
-            key.replace("/works/", "")
+            System.currentTimeMillis(),
         )
     }
 }

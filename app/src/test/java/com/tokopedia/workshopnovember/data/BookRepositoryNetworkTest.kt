@@ -1,6 +1,7 @@
 package com.tokopedia.workshopnovember.data
 
 import com.tokopedia.workshopnovember.data.cloud.BookApi
+import com.tokopedia.workshopnovember.data.local.BookDao
 import com.tokopedia.workshopnovember.data.local.FavDao
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -22,8 +23,9 @@ class BookRepositoryNetworkTest {
         .create(BookApi::class.java)
 
     private val mockedDao = mockk<FavDao>()
+    private val mockedBookDao = mockk<BookDao>()
 
-    private val sut = BookRepository(api, mockedDao)
+    private val sut = BookRepository(api, mockedBookDao, mockedDao)
 
     @Test
     fun searchWithQuery() {

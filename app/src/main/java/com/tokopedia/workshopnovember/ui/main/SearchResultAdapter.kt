@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tokopedia.workshopnovember.R
-import com.tokopedia.workshopnovember.pojo.search.BookUiModel
+import com.tokopedia.workshopnovember.pojo.BookEntity
 
-class SearchResultAdapter(private var listener: ((String?) -> Unit)? = null) :
-    ListAdapter<BookUiModel, SearchResultAdapter.SearchResultViewHolder>(DiffCallBack()) {
+class SearchResultAdapter(private var listener: ((String) -> Unit)? = null) :
+    ListAdapter<BookEntity, SearchResultAdapter.SearchResultViewHolder>(DiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_book, parent, false)
@@ -33,7 +33,7 @@ class SearchResultAdapter(private var listener: ((String?) -> Unit)? = null) :
 
     inner class SearchResultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: BookUiModel) {
+        fun bind(item: BookEntity) {
             itemView.findViewById<TextView>(R.id.tv_title).text = item.title
             itemView.findViewById<TextView>(R.id.tv_author).text = item.author
 
@@ -47,17 +47,17 @@ class SearchResultAdapter(private var listener: ((String?) -> Unit)? = null) :
 
     }
 
-    class DiffCallBack : DiffUtil.ItemCallback<BookUiModel>() {
+    class DiffCallBack : DiffUtil.ItemCallback<BookEntity>() {
         override fun areItemsTheSame(
-            oldItem: BookUiModel,
-            newItem: BookUiModel
+            oldItem: BookEntity,
+            newItem: BookEntity
         ): Boolean {
             return oldItem.isbn == newItem.isbn
         }
 
         override fun areContentsTheSame(
-            oldItem: BookUiModel,
-            newItem: BookUiModel
+            oldItem: BookEntity,
+            newItem: BookEntity
         ): Boolean {
             return oldItem == newItem
         }
