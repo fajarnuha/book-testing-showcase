@@ -8,6 +8,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * This viewModel uses single object [DetailState] to represent the view
+ * */
 @HiltViewModel
 class DetailViewModel @Inject constructor(private val repository: BookRepository) : ViewModel() {
 
