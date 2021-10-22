@@ -1,10 +1,9 @@
 package com.tokopedia.workshopnovember.data
 
-import android.util.Log
 import com.tokopedia.workshopnovember.data.cloud.BookApi
 import com.tokopedia.workshopnovember.data.local.BookDao
 import com.tokopedia.workshopnovember.data.local.FavDao
-import com.tokopedia.workshopnovember.data.local.FavoriteEntity
+import com.tokopedia.workshopnovember.pojo.FavoriteEntity
 import com.tokopedia.workshopnovember.pojo.BookEntity
 import com.tokopedia.workshopnovember.pojo.search.Doc
 import kotlinx.coroutines.Dispatchers
