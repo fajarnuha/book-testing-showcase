@@ -60,7 +60,7 @@ data class IsbnResponse(
         )
         return BookEntity(
             id,
-            id, // forcing the id
+            id, // forcing the id because sometimes the API gives inconsistent isbn13
 //            isbn13.first(),
             "https://covers.openlibrary.org/b/isbn/${isbn13.first()}-M.jpg",
             title,
