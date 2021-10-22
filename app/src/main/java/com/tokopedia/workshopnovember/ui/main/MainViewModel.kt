@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(repo: BookRepository): ViewModel() {
                 }
                 emit(books)
             } catch (e: Exception) {
-                _message.value = "something went wrong"
+                _message.value = e.message
             }
             _loading.value = false
         }
