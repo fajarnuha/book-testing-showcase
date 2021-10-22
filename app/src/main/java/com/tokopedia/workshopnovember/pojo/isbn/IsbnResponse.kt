@@ -52,8 +52,9 @@ data class IsbnResponse(
     @SerializedName("works")
     val works: List<Work> = listOf()
 ) {
-    fun toBookEntity(): BookEntity {
+    fun toBookEntity(id: String): BookEntity {
         return BookEntity(
+            id,
             isbn13.first(),
             "https://covers.openlibrary.org/b/isbn/${isbn13.first()}-M.jpg",
             title,

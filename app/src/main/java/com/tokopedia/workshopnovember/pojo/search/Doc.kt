@@ -150,6 +150,7 @@ data class Doc(
 ) {
     fun toBookEntity(): BookEntity {
         return BookEntity(
+            "",
             isbn?.first() ?: "",
             "https://covers.openlibrary.org/b/isbn/${isbn?.firstOrNull()}-M.jpg",
             title,

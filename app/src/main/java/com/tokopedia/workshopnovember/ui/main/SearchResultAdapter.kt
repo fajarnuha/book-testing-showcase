@@ -22,6 +22,7 @@ class SearchResultAdapter(private var listener: ((String) -> Unit)? = null) :
         }
         return SearchResultViewHolder(view).apply {
             itemView.setOnClickListener {
+                // always use isbn for passing to details API
                 listener?.invoke(currentList[adapterPosition].isbn)
             }
         }

@@ -6,7 +6,9 @@ import com.tokopedia.workshopnovember.data.local.FavDao
 import com.tokopedia.workshopnovember.data.local.FavoriteEntity
 import com.tokopedia.workshopnovember.pojo.BookEntity
 import com.tokopedia.workshopnovember.pojo.search.Doc
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -25,15 +27,15 @@ class BookRepository @Inject constructor(
         return cloudResult.docs
     }
 
-    suspend fun getBookById(id: String): BookEntity {
+    suspend fun getBookById(id: String): BookEntity = withContext(Dispatchers.IO){
         bookDao.get(id)?.let {
             if (!it.timestamp.isExpired()) {
-                return it
+                return@withContext it
             }
         }
-        val freshBook = bookApi.get(id).toBookEntity()
+        val freshBook = bookApi.get(id).toBookEntity(id)
         bookDao.insert(freshBook)
-        return freshBook
+        freshBook
     }
 
     suspend fun setFavorite(id: String, checked: Boolean) {
