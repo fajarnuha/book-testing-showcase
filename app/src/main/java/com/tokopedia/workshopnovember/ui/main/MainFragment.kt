@@ -28,6 +28,7 @@ class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModels()
     private val mAdapter = SearchResultAdapter(listener = ::onClickItem)
+    private val mFavAdapter = SearchResultAdapter(listener = ::onClickItem)
     private var navListener: Navigation? = null
 
     override fun onAttach(context: Context) {
@@ -49,6 +50,8 @@ class MainFragment : Fragment() {
         val editText = view.findViewById<EditText>(R.id.et_search)
         val loadingView = view.findViewById<ProgressBar>(R.id.progressBar)
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv)
+        val favBookView = view.findViewById<View>(R.id.view_fav)
+        val favBookList = view.findViewById<RecyclerView>(R.id.fav_rv)
 
         editText.setOnEditorActionListener { v, actionId, event ->
             if (isSearchAction(actionId)) {
@@ -69,7 +72,19 @@ class MainFragment : Fragment() {
             adapter = mAdapter
         }
 
+        with(favBookList) {
+            layoutManager = GridLayoutManager(
+                requireContext(),
+                3,
+                RecyclerView.VERTICAL,
+                false
+            )
+            adapter = mFavAdapter
+        }
+
         viewModel.result.observe(viewLifecycleOwner) { list ->
+            recyclerView.visibility = getViewVisibility(list.isNotEmpty())
+            favBookView.visibility = getViewVisibility(list.isEmpty())
             mAdapter.submitList(list)
         }
 
@@ -82,11 +97,15 @@ class MainFragment : Fragment() {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         }
 
+        viewModel.favBooks.observe(viewLifecycleOwner) {
+            mFavAdapter.submitList(it)
+        }
+
     }
 
     private fun isSearchAction(actionId: Int) =
         actionId == EditorInfo.IME_ACTION_SEARCH
-            || actionId == EditorInfo.IME_ACTION_UNSPECIFIED
+                || actionId == EditorInfo.IME_ACTION_UNSPECIFIED
 
     private fun onClickItem(id: String) {
         if (id.isEmpty()) {

@@ -1,5 +1,6 @@
 package com.tokopedia.workshopnovember.data
 
+import android.util.Log
 import com.tokopedia.workshopnovember.data.cloud.BookApi
 import com.tokopedia.workshopnovember.data.local.BookDao
 import com.tokopedia.workshopnovember.data.local.FavDao
@@ -27,7 +28,7 @@ class BookRepository @Inject constructor(
         return cloudResult.docs
     }
 
-    suspend fun getBookById(id: String): BookEntity = withContext(Dispatchers.IO){
+    suspend fun getBookById(id: String): BookEntity = withContext(Dispatchers.IO) {
         bookDao.get(id)?.let {
             if (!it.timestamp.isExpired()) {
                 return@withContext it
