@@ -1,6 +1,7 @@
 package com.tokopedia.workshopnovember.pojo.isbn
 
 
+import android.util.Log
 import com.google.gson.annotations.SerializedName
 import com.tokopedia.workshopnovember.pojo.BookEntity
 
@@ -53,9 +54,14 @@ data class IsbnResponse(
     val works: List<Work> = listOf()
 ) {
     fun toBookEntity(id: String): BookEntity {
+        Log.d(
+            this.javaClass.canonicalName,
+            "${if (this.isbn13.first() == id) "SAME" else "DIFF"}: $id & ${this.isbn13.first()}"
+        )
         return BookEntity(
             id,
-            isbn13.first(),
+            id, // forcing the id because sometimes the API gives inconsistent isbn13
+//            isbn13.first(),
             "https://covers.openlibrary.org/b/isbn/${isbn13.first()}-M.jpg",
             title,
             authors.firstOrNull()?.key,
