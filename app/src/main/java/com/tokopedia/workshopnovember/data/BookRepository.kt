@@ -40,7 +40,7 @@ class BookRepository @Inject constructor(
 
     suspend fun setFavorite(id: String, checked: Boolean) {
         if (checked) {
-            favDao.insert(FavoriteEntity(isbnId = id))
+            favDao.insert(FavoriteEntity(bookId = id))
         } else {
             favDao.delete(id)
         }

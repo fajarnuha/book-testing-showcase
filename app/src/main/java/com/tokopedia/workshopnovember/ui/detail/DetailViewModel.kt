@@ -18,7 +18,7 @@ class DetailViewModel @Inject constructor(private val repository: BookRepository
             try {
                 val result = repository.getBookById(it)
                 repository.getFavorites().collect { favs ->
-                    val isFav = favs.map { it.isbnId }.contains(result.isbn)
+                    val isFav = favs.map { it.bookId }.contains(result.id)
                     emit(DetailState.Detail(result, isFav))
                 }
 
@@ -32,9 +32,9 @@ class DetailViewModel @Inject constructor(private val repository: BookRepository
         _id.value = id
     }
 
-    fun setFavorite(isbn: String, state: Boolean) {
+    fun setFavorite(bookId: String, state: Boolean) {
         viewModelScope.launch {
-            repository.setFavorite(isbn, state)
+            repository.setFavorite(bookId, state)
         }
     }
 

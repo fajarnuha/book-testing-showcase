@@ -15,7 +15,7 @@ interface FavDao {
     @Query("SELECT * FROM FavoriteEntity")
     fun get(): Flow<List<FavoriteEntity>>
 
-    @Query("DELETE FROM FavoriteEntity WHERE isbnId = :id")
+    @Query("DELETE FROM FavoriteEntity WHERE bookId = :id")
     suspend fun delete(id: String)
 
 }

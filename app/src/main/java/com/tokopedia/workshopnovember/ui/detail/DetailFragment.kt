@@ -59,7 +59,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                     }
                     titleView.text = it.data.title
                     checkFav.isChecked = it.isFavorite
-                    checkFav.tag = it.data.isbn
+                    checkFav.tag = it.data.id
 
                     checkFav.visibility = View.VISIBLE
                 }
