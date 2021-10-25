@@ -1,9 +1,9 @@
-package com.tokopedia.workshopnovember.pojo.isbn
+package com.tokopedia.workshopnovember.entity.isbn
 
 
 import com.google.gson.annotations.SerializedName
 
-data class FirstSentence(
+data class LastModified(
     @SerializedName("type")
     val type: String = "",
     @SerializedName("value")

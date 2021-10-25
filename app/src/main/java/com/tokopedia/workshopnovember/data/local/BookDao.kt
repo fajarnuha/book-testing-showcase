@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.tokopedia.workshopnovember.pojo.BookEntity
+import com.tokopedia.workshopnovember.entity.BookEntity
 
 @Dao
 interface BookDao {

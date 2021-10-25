@@ -3,7 +3,7 @@ package com.tokopedia.workshopnovember.data.local
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.tokopedia.workshopnovember.pojo.FavoriteEntity
+import com.tokopedia.workshopnovember.entity.FavoriteEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

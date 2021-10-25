@@ -3,9 +3,9 @@ package com.tokopedia.workshopnovember.data
 import com.tokopedia.workshopnovember.data.cloud.BookApi
 import com.tokopedia.workshopnovember.data.local.BookDao
 import com.tokopedia.workshopnovember.data.local.FavDao
-import com.tokopedia.workshopnovember.pojo.FavoriteEntity
-import com.tokopedia.workshopnovember.pojo.BookEntity
-import com.tokopedia.workshopnovember.pojo.search.Doc
+import com.tokopedia.workshopnovember.entity.FavoriteEntity
+import com.tokopedia.workshopnovember.entity.BookEntity
+import com.tokopedia.workshopnovember.entity.search.Doc
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

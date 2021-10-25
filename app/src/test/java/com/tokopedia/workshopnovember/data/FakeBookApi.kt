@@ -1,9 +1,9 @@
 package com.tokopedia.workshopnovember.data
 
-import com.tokopedia.workshopnovember.pojo.search.Doc
-import com.tokopedia.workshopnovember.pojo.search.SearchResponse
+import com.tokopedia.workshopnovember.entity.search.Doc
+import com.tokopedia.workshopnovember.entity.search.SearchResponse
 import com.tokopedia.workshopnovember.data.cloud.BookApi
-import com.tokopedia.workshopnovember.pojo.isbn.IsbnResponse
+import com.tokopedia.workshopnovember.entity.isbn.IsbnResponse
 import kotlinx.coroutines.delay
 
 class FakeBookApi : BookApi {

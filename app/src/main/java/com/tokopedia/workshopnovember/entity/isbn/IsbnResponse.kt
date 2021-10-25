@@ -1,9 +1,9 @@
-package com.tokopedia.workshopnovember.pojo.isbn
+package com.tokopedia.workshopnovember.entity.isbn
 
 
 import android.util.Log
 import com.google.gson.annotations.SerializedName
-import com.tokopedia.workshopnovember.pojo.BookEntity
+import com.tokopedia.workshopnovember.entity.BookEntity
 
 data class IsbnResponse(
     @SerializedName("authors")

@@ -3,8 +3,8 @@ package com.tokopedia.workshopnovember.data
 import com.tokopedia.workshopnovember.data.cloud.BookApi
 import com.tokopedia.workshopnovember.data.local.BookDao
 import com.tokopedia.workshopnovember.data.local.FavDao
-import com.tokopedia.workshopnovember.pojo.search.Doc
-import com.tokopedia.workshopnovember.pojo.search.SearchResponse
+import com.tokopedia.workshopnovember.entity.search.Doc
+import com.tokopedia.workshopnovember.entity.search.SearchResponse
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.Assert.assertEquals

@@ -1,8 +1,8 @@
-package com.tokopedia.workshopnovember.pojo.search
+package com.tokopedia.workshopnovember.entity.search
 
 
 import com.google.gson.annotations.SerializedName
-import com.tokopedia.workshopnovember.pojo.BookEntity
+import com.tokopedia.workshopnovember.entity.BookEntity
 
 data class Doc(
     @SerializedName("author_alternative_name")

@@ -1,9 +1,8 @@
 package com.tokopedia.workshopnovember.ui.main
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.tokopedia.workshopnovember.data.BookRepository
-import com.tokopedia.workshopnovember.pojo.BookEntity
+import com.tokopedia.workshopnovember.entity.BookEntity
 import com.tokopedia.workshopnovember.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

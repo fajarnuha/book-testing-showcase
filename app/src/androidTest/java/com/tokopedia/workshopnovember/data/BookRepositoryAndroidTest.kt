@@ -6,8 +6,8 @@ import com.tokopedia.workshopnovember.data.cloud.BookApi
 import com.tokopedia.workshopnovember.data.local.AppDatabase
 import com.tokopedia.workshopnovember.data.local.BookDao
 import com.tokopedia.workshopnovember.data.local.FavDao
-import com.tokopedia.workshopnovember.pojo.isbn.Author
-import com.tokopedia.workshopnovember.pojo.isbn.IsbnResponse
+import com.tokopedia.workshopnovember.entity.isbn.Author
+import com.tokopedia.workshopnovember.entity.isbn.IsbnResponse
 import io.mockk.*
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.*
@@ -15,6 +15,9 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
+/**
+ * Non UI Android Test to test repository layer with Room database interaction
+ * */
 class BookRepositoryAndroidTest {
 
     private lateinit var sut: BookRepository

@@ -1,4 +1,4 @@
-package com.tokopedia.workshopnovember.pojo.search
+package com.tokopedia.workshopnovember.entity.search
 
 
 import com.google.gson.annotations.SerializedName

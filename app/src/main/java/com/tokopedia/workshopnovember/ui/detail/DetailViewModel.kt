@@ -2,7 +2,7 @@ package com.tokopedia.workshopnovember.ui.detail
 
 import androidx.lifecycle.*
 import com.tokopedia.workshopnovember.data.BookRepository
-import com.tokopedia.workshopnovember.pojo.BookEntity
+import com.tokopedia.workshopnovember.entity.BookEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

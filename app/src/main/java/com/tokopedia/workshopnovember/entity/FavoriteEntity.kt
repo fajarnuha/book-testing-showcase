@@ -1,4 +1,4 @@
-package com.tokopedia.workshopnovember.pojo
+package com.tokopedia.workshopnovember.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

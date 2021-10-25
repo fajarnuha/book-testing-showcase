@@ -1,7 +1,7 @@
 package com.tokopedia.workshopnovember.data.cloud
 
-import com.tokopedia.workshopnovember.pojo.isbn.IsbnResponse
-import com.tokopedia.workshopnovember.pojo.search.SearchResponse
+import com.tokopedia.workshopnovember.entity.isbn.IsbnResponse
+import com.tokopedia.workshopnovember.entity.search.SearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

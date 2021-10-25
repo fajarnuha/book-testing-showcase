@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tokopedia.workshopnovember.R
-import com.tokopedia.workshopnovember.pojo.BookEntity
+import com.tokopedia.workshopnovember.entity.BookEntity
 
 class SearchResultAdapter(private var listener: ((String) -> Unit)? = null) :
     ListAdapter<BookEntity, SearchResultAdapter.SearchResultViewHolder>(DiffCallBack()) {

@@ -1,4 +1,4 @@
-package com.tokopedia.workshopnovember.pojo.isbn
+package com.tokopedia.workshopnovember.entity.isbn
 
 
 import com.google.gson.annotations.SerializedName
