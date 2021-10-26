@@ -9,7 +9,7 @@ import com.tokopedia.workshopnovember.data.local.FavDao
 import com.tokopedia.workshopnovember.entity.isbn.Author
 import com.tokopedia.workshopnovember.entity.isbn.IsbnResponse
 import io.mockk.*
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 
 import org.junit.Before
@@ -46,7 +46,7 @@ class BookRepositoryAndroidTest {
     }
 
     @Test
-    fun getBookById() = runBlockingTest {
+    fun whenHavingCacheThenReturnTheCache() = runBlocking {
         coEvery { fakeApi.get(any()) } returns defaultBook
         val book = sut.getBookById("12345")
 

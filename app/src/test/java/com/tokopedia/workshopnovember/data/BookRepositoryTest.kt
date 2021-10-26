@@ -8,12 +8,10 @@ import com.tokopedia.workshopnovember.entity.search.SearchResponse
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.Assert.assertEquals
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-@ExperimentalCoroutinesApi
 class BookRepositoryTest {
 
     private lateinit var api: BookApi
@@ -31,7 +29,7 @@ class BookRepositoryTest {
     }
 
     @Test
-    fun `given success response then return list of docs`() = runBlockingTest {
+    fun `given success response then return list of docs`() = runBlocking {
         // given
         val query = "foo"
         val expectedBook = listOf(Doc(title = "Harry Potter"))
