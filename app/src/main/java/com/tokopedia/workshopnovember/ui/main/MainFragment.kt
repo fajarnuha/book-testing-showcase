@@ -2,6 +2,7 @@ package com.tokopedia.workshopnovember.ui.main
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +55,7 @@ class MainFragment : Fragment() {
         val favBookList = view.findViewById<RecyclerView>(R.id.fav_rv)
 
         editText.setOnEditorActionListener { v, actionId, event ->
-            if (isSearchAction(actionId)) {
+            if (isSearchAction(actionId, event)) {
                 hideKeyboard(context, editText)
                 viewModel.search(v.text.toString())
                 return@setOnEditorActionListener true
@@ -103,9 +104,13 @@ class MainFragment : Fragment() {
 
     }
 
-    private fun isSearchAction(actionId: Int) =
+    private fun isSearchAction(actionId: Int, event: KeyEvent?) =
         actionId == EditorInfo.IME_ACTION_SEARCH
-                || actionId == EditorInfo.IME_ACTION_UNSPECIFIED
+            || isKeyboardEnterEvent(actionId, event)
+
+    private fun isKeyboardEnterEvent(actionId: Int, event: KeyEvent?) =
+        actionId == EditorInfo.IME_NULL
+            && event?.action == KeyEvent.ACTION_DOWN
 
     private fun onClickItem(id: String) {
         if (id.isEmpty()) {
