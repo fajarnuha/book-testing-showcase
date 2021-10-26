@@ -54,10 +54,6 @@ data class IsbnResponse(
     val works: List<Work> = listOf()
 ) {
     fun toBookEntity(id: String): BookEntity {
-        Log.d(
-            this.javaClass.canonicalName,
-            "${if (this.isbn13.first() == id) "SAME" else "DIFF"}: $id & ${this.isbn13.first()}"
-        )
         return BookEntity(
             id,
             id, // forcing the id because sometimes the API gives inconsistent isbn13

@@ -3,6 +3,7 @@ package com.tokopedia.workshopnovember.data
 import com.tokopedia.workshopnovember.data.cloud.BookApi
 import com.tokopedia.workshopnovember.data.local.BookDao
 import com.tokopedia.workshopnovember.data.local.FavDao
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -23,7 +24,9 @@ class BookRepositoryNetworkTest {
         .create(BookApi::class.java)
 
     private val mockedDao = mockk<FavDao>()
-    private val mockedBookDao = mockk<BookDao>()
+    private val mockedBookDao = mockk<BookDao>(relaxUnitFun = true){
+        every { this@mockk.get(any()) } returns null
+    }
 
     private val sut = BookRepository(api, mockedBookDao, mockedDao)
 
