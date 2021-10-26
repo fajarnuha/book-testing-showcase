@@ -51,13 +51,10 @@ class DetailViewModelTest {
 
         val observer = mockk<Observer<DetailState>>()
         val slot = slot<DetailState>()
-        val list = arrayListOf<DetailState>()
 
         detailViewModel.state.observeForever(observer)
 
-        every { observer.onChanged(capture(slot)) } answers {
-            list.add(slot.captured)
-        }
+        every { observer.onChanged(capture(slot)) } just Runs
 
         coEvery { repository.getBookById(bookId) } coAnswers { bookEntity }
 
