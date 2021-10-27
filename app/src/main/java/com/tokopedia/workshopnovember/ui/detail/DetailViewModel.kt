@@ -15,18 +15,21 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(private val repository: BookRepository) : ViewModel() {
 
     private val _id: MutableLiveData<String> = MutableLiveData()
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
     val state: LiveData<DetailState> = _id.switchMap {
+        _loading.value = true
         liveData {
-            emit(DetailState.Loading)
             try {
                 val result = repository.getBookById(it)
                 repository.getFavorites().collect { favs ->
                     val isFav = favs.map { it.bookId }.contains(result.id)
                     emit(DetailState.Detail(result, isFav))
                 }
-
             } catch (e: Exception) {
                 emit(DetailState.Error(e.message ?: "Something went wrong"))
+            } finally {
+                _loading.value = false
             }
         }
     }
@@ -46,5 +49,4 @@ class DetailViewModel @Inject constructor(private val repository: BookRepository
 sealed class DetailState {
     data class Detail(val data: BookEntity, val isFavorite: Boolean) : DetailState()
     data class Error(val msg: String) : DetailState()
-    object Loading : DetailState()
 }

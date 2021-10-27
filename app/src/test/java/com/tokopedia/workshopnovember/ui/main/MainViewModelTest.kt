@@ -31,7 +31,7 @@ class MainViewModelTest {
 
     @Before
     fun setUp() {
-        repo = mockk()
+        repo = mockk(relaxed = true)
         sut = MainViewModel(repo)
     }
 
