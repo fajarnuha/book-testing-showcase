@@ -19,10 +19,7 @@ class MainViewModel @Inject constructor(repo: BookRepository) : ViewModel() {
     private val _message: SingleLiveEvent<String> = SingleLiveEvent()
     val message: LiveData<String> get() = _message
 
-    val favBooks: LiveData<List<BookEntity>> =
-        repo.getFavorites()
-            .map { favs -> favs.map { repo.getBookById(it.bookId) } }
-            .asLiveData(context = viewModelScope.coroutineContext + Dispatchers.IO)
+    val favBooks: LiveData<List<BookEntity>> = repo.getFavoritesWithDetail().asLiveData()
 
     private val _query: MutableLiveData<String> = MutableLiveData()
     val result = _query.switchMap {
