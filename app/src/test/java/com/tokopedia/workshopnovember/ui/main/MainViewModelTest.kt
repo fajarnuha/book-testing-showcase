@@ -8,8 +8,10 @@ import com.tokopedia.workshopnovember.entity.search.Doc
 import com.tokopedia.workshopnovember.data.BookRepository
 import com.tokopedia.workshopnovember.entity.BookEntity
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
@@ -31,7 +33,9 @@ class MainViewModelTest {
 
     @Before
     fun setUp() {
-        repo = mockk()
+        repo = mockk {
+            every { this@mockk.getFavoritesWithDetail() } returns flowOf()
+        }
         sut = MainViewModel(repo)
     }
 
