@@ -12,4 +12,6 @@ data class BookEntity(
     val title: String,
     val author: String?,
     val timestamp: Long,
+    val publisher: String? = null,
+    val publishDate: String? = null,
 )

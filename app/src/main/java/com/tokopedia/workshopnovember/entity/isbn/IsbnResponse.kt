@@ -62,6 +62,8 @@ data class IsbnResponse(
             title,
             authors.firstOrNull()?.key,
             System.currentTimeMillis(),
+            publishers.joinToString(),
+            publishDate
         )
     }
 }
