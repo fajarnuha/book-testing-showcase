@@ -5,18 +5,11 @@ import androidx.lifecycle.Observer
 import com.tokopedia.workshopnovember.MainCoroutineRule
 import com.tokopedia.workshopnovember.data.BookRepository
 import com.tokopedia.workshopnovember.entity.BookEntity
-import com.tokopedia.workshopnovember.entity.FavoriteEntity
-import com.tokopedia.workshopnovember.getOrAwaitValue
 import com.tokopedia.workshopnovember.ui.detail.DetailState
 import com.tokopedia.workshopnovember.ui.detail.DetailViewModel
 import io.mockk.*
-import io.mockk.impl.annotations.MockK
-import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.flowOf
-import org.hamcrest.CoreMatchers
-import org.hamcrest.MatcherAssert
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -42,12 +35,9 @@ class DetailViewModelTest {
         repository = mockk()
         observer = mockk(relaxUnitFun = true)
         detailViewModel = DetailViewModel(repository)
+        detailViewModel.state.observeForever(observer)
     }
 
-    @After
-    fun finish() {
-        detailViewModel.state.removeObserver(observer)
-    }
 
     @Test
     fun `when open detail book should return result`()  {
@@ -60,14 +50,9 @@ class DetailViewModelTest {
             author = "Josh Barkan",
             timestamp = 123456L
         )
-        val favoriteList = flowOf(listOf(FavoriteEntity(
-            bookId = bookId
-        )))
-
-        detailViewModel.state.observeForever(observer)
 
         coEvery { repository.getBookById(bookId) } returns bookEntity
-        every { repository.getFavorites() } returns favoriteList
+        every { repository.getFavorites() } returns flowOf(listOf())
 
         detailViewModel.setId(bookId)
 
@@ -76,22 +61,6 @@ class DetailViewModelTest {
             observer.onChanged(DetailState.Detail(bookEntity, false))
         }
     }
-
-//    @Test
-//    fun `open book detail will show loading before showing result`() {
-//        val bookId = "67890"
-//
-//        mainCoroutineRule.pauseDispatcher()
-//        detailViewModel.state.observeForever(observer)
-//
-//        detailViewModel.setId(bookId)
-//
-//        MatcherAssert.assertThat(detailViewModel.loading.getOrAwaitValue(), CoreMatchers.`is`(true))
-//
-//        mainCoroutineRule.resumeDispatcher()
-//
-//        MatcherAssert.assertThat(detailViewModel.loading.getOrAwaitValue(), CoreMatchers.`is`(false))
-//    }
 
     @Test
     fun `when setFavorite then repository's setFavorite should be called`() {
