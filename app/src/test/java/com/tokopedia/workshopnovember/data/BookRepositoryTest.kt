@@ -45,20 +45,30 @@ class BookRepositoryTest {
 
     @Test
     fun `when setFavorite given checked state is true should verify insert in favDao`() = runBlocking {
+        // given
         val isChecked = true
         val bookId = "12345"
         coEvery { fakeFavDao.insert(FavoriteEntity(bookId = bookId)) } just Runs
+
+        // when
         sut.setFavorite(bookId, isChecked)
+
+        // then
         coVerify { fakeFavDao.insert(FavoriteEntity(bookId = bookId)) }
     }
 
 
     @Test
     fun `when setFavorite given checked state is false should verify delete in favDao`() = runBlocking {
+        // given
         val isChecked = false
         val bookId = "12345"
         coEvery { fakeFavDao.delete(bookId) } just Runs
+
+        // when
         sut.setFavorite(bookId, isChecked)
+
+        // then
         coVerify { fakeFavDao.delete(bookId) }
     }
 
