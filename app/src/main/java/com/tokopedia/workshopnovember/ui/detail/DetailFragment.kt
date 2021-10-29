@@ -52,6 +52,10 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
             msgView.visibility = View.INVISIBLE
             loadingView.visibility = View.INVISIBLE
             when (it) {
+                is DetailState.Loading -> {
+                    loadingView.visibility = View.VISIBLE
+                    checkFav.visibility = View.GONE
+                }
                 is DetailState.Detail -> {
                     coverView.run {
                         Glide.with(requireContext())
@@ -65,7 +69,6 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                     """.trimIndent()
                     checkFav.isChecked = it.isFavorite
                     checkFav.tag = it.data.id
-
                     checkFav.visibility = View.VISIBLE
                 }
                 is DetailState.Error -> {
@@ -74,13 +77,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
 
                     checkFav.visibility = View.GONE
                 }
-                DetailState.Loading -> {
-                    loadingView.visibility = View.VISIBLE
-
-                    checkFav.visibility = View.GONE
-                }
             }
-
         }
 
         checkFav.setOnCheckedChangeListener { buttonView, isChecked ->

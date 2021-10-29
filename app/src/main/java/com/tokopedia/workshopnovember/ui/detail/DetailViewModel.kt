@@ -15,6 +15,8 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(private val repository: BookRepository) : ViewModel() {
 
     private val _id: MutableLiveData<String> = MutableLiveData()
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
     val state: LiveData<DetailState> = _id.switchMap {
         liveData {
             emit(DetailState.Loading)
@@ -24,7 +26,6 @@ class DetailViewModel @Inject constructor(private val repository: BookRepository
                     val isFav = favs.map { it.bookId }.contains(result.id)
                     emit(DetailState.Detail(result, isFav))
                 }
-
             } catch (e: Exception) {
                 emit(DetailState.Error(e.message ?: "Something went wrong"))
             }
