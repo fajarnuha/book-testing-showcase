@@ -10,9 +10,11 @@ import com.tokopedia.workshopnovember.ui.detail.DetailViewModel
 import io.mockk.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.flowOf
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.ArgumentMatchers.*
 
 class DetailViewModelTest {
 
@@ -36,6 +38,10 @@ class DetailViewModelTest {
         detailViewModel.state.observeForever(observer)
     }
 
+    @After
+    fun finish() {
+        detailViewModel.state.removeObserver(observer)
+    }
 
     @Test
     fun `when open detail book should return result`()  {
@@ -64,16 +70,13 @@ class DetailViewModelTest {
 
     @Test
     fun `when setFavorite then repository's setFavorite should be called`() {
-        //given
-        val isChecked = true
-        val bookId = "12345"
-        coEvery { repository.setFavorite(bookId, isChecked) } just Runs
+        coEvery { repository.setFavorite(anyString(), anyBoolean()) } just Runs
 
         //when
-        detailViewModel.setFavorite(bookId, isChecked)
+        detailViewModel.setFavorite(anyString(), anyBoolean())
 
         //then
-        coVerify { repository.setFavorite(any(), any()) }
+        coVerify { repository.setFavorite(anyString(), anyBoolean()) }
     }
 
 }
