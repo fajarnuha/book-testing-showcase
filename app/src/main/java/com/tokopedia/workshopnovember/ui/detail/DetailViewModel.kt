@@ -18,8 +18,8 @@ class DetailViewModel @Inject constructor(private val repository: BookRepository
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
     val state: LiveData<DetailState> = _id.switchMap {
-        _loading.value = true
         liveData {
+            emit(DetailState.Loading)
             try {
                 val result = repository.getBookById(it)
                 repository.getFavorites().collect { favs ->
@@ -28,8 +28,6 @@ class DetailViewModel @Inject constructor(private val repository: BookRepository
                 }
             } catch (e: Exception) {
                 emit(DetailState.Error(e.message ?: "Something went wrong"))
-            } finally {
-                _loading.value = false
             }
         }
     }
@@ -49,4 +47,5 @@ class DetailViewModel @Inject constructor(private val repository: BookRepository
 sealed class DetailState {
     data class Detail(val data: BookEntity, val isFavorite: Boolean) : DetailState()
     data class Error(val msg: String) : DetailState()
+    object Loading : DetailState()
 }

@@ -51,6 +51,10 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
             msgView.visibility = View.INVISIBLE
             loadingView.visibility = View.INVISIBLE
             when (it) {
+                is DetailState.Loading -> {
+                    loadingView.visibility = View.VISIBLE
+                    checkFav.visibility = View.GONE
+                }
                 is DetailState.Detail -> {
                     coverView.run {
                         Glide.with(requireContext())
@@ -67,18 +71,6 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                     msgView.text = "Error: ${it.msg}"
 
                     checkFav.visibility = View.GONE
-                }
-            }
-        }
-
-        viewModel.loading.observe(viewLifecycleOwner) {
-            when (it) {
-                true -> {
-                    loadingView.visibility = View.VISIBLE
-                    checkFav.visibility = View.GONE
-                }
-                else -> {
-                    loadingView.visibility = View.GONE
                 }
             }
         }
