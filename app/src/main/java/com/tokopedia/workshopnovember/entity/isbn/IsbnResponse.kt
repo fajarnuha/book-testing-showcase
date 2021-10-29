@@ -58,10 +58,12 @@ data class IsbnResponse(
             id,
             id, // forcing the id because sometimes the API gives inconsistent isbn13
 //            isbn13.first(),
-            "https://covers.openlibrary.org/b/isbn/${isbn13.first()}-M.jpg",
+            "https://covers.openlibrary.org/b/isbn/${isbn13.firstOrNull()}-M.jpg",
             title,
             authors.firstOrNull()?.key,
             System.currentTimeMillis(),
+            publishers.joinToString(),
+            publishDate
         )
     }
 }

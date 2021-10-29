@@ -43,6 +43,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
         super.onViewCreated(view, savedInstanceState)
         val coverView = view.findViewById<ImageView>(R.id.iv_cover)
         val titleView = view.findViewById<TextView>(R.id.tv_title)
+        val descView = view.findViewById<TextView>(R.id.tv_desc)
         val msgView = view.findViewById<TextView>(R.id.tv_message)
         val loadingView = view.findViewById<ProgressBar>(R.id.pb)
         val checkFav = view.findViewById<CheckBox>(R.id.cb_fav)
@@ -62,6 +63,10 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                             .into(this)
                     }
                     titleView.text = it.data.title
+                    descView.text = """
+                        Publisher: ${it.data.publisher}
+                        Publish Date: ${it.data.publishDate}
+                    """.trimIndent()
                     checkFav.isChecked = it.isFavorite
                     checkFav.tag = it.data.id
                     checkFav.visibility = View.VISIBLE

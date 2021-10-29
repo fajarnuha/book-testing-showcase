@@ -156,6 +156,8 @@ data class Doc(
             title,
             authorName?.firstOrNull(),
             System.currentTimeMillis(),
+            publisher.joinToString(),
+            publishDate.firstOrNull()
         )
     }
 }

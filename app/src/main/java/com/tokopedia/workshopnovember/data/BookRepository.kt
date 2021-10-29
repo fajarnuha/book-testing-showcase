@@ -8,6 +8,8 @@ import com.tokopedia.workshopnovember.entity.BookEntity
 import com.tokopedia.workshopnovember.entity.search.Doc
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -48,6 +50,12 @@ class BookRepository @Inject constructor(
 
     fun getFavorites(): Flow<List<FavoriteEntity>> {
         return favDao.get()
+    }
+
+    fun getFavoritesWithDetail(): Flow<List<BookEntity>> {
+        return favDao.get()
+            .map { favs -> favs.map { getBookById(it.bookId) } }
+            .flowOn(Dispatchers.IO)
     }
 
     private fun Long.isExpired(): Boolean = (System.currentTimeMillis() - this) > CACHE_EXPIRY
