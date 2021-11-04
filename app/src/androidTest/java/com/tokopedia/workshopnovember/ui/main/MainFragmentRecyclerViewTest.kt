@@ -82,7 +82,7 @@ class MainFragmentRecyclerViewTest {
         }
 
         onView(withId(R.id.et_search))
-            .perform(typeText("lord of the ringgs"))
+            .perform(typeText("lord of the rings"))
             .perform(pressImeActionButton())
 
         val recyclerViewIdlingResource = RecyclerViewIdlingResource(recyclerView!!)
