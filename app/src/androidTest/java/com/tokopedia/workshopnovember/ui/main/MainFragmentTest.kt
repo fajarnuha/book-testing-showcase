@@ -1,6 +1,5 @@
 package com.tokopedia.workshopnovember.ui.main
 
-import android.os.Bundle
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.pressImeActionButton
@@ -10,11 +9,8 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.tokopedia.workshopnovember.MainActivity
 import com.tokopedia.workshopnovember.R
-import com.tokopedia.workshopnovember.launchFragmentInHiltContainer
-import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Test
 
-@HiltAndroidTest
 class MainFragmentTest {
 
     @Test
