@@ -2,6 +2,7 @@ package com.tokopedia.workshopnovember
 
 import com.google.gson.Gson
 import com.tokopedia.workshopnovember.data.cloud.BookApi
+import com.tokopedia.workshopnovember.entity.isbn.Author
 import com.tokopedia.workshopnovember.entity.isbn.IsbnResponse
 import com.tokopedia.workshopnovember.entity.search.SearchResponse
 
@@ -15,6 +16,10 @@ class FakeBookApi : BookApi {
     }
 
     override suspend fun get(id: String): IsbnResponse {
-        TODO("Not yet implemented")
+        return IsbnResponse(
+            isbn13 = listOf("12345"),
+            title = "Lord of the Rings",
+            authors = listOf(Author("JK Rowling"))
+        )
     }
 }
