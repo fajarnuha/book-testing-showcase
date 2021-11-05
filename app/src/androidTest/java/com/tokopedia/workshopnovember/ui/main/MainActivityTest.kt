@@ -14,7 +14,7 @@ import org.junit.Test
 class MainActivityTest {
 
     @Test
-    fun launch_main_fragment_will_show_search_bar() {
+    fun launch_main_activity_will_show_search_bar() {
         launchActivity<MainActivity>()
 
         onView(withId(R.id.et_search))
