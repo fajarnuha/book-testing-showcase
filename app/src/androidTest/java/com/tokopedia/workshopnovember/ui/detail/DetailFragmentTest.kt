@@ -21,7 +21,9 @@ class DetailFragmentTest {
     @Test
     fun launch_detail_fragment() {
         val bundle = Bundle().apply { putString("ARGS_ID", "074757362X") }
-        launchFragmentInHiltContainer<DetailFragment>(fragmentArgs = bundle, themeResId = R.style.Theme_WorkshopNovember)
+        launchFragmentInHiltContainer<DetailFragment>(
+            fragmentArgs = bundle, themeResId = R.style.Theme_WorkshopNovember
+        )
 
         Thread.sleep(5000)
     }
