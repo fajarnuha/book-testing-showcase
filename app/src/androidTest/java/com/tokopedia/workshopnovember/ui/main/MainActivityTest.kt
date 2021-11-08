@@ -9,9 +9,17 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.tokopedia.workshopnovember.MainActivity
 import com.tokopedia.workshopnovember.R
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import org.junit.Rule
 import org.junit.Test
 
+
+@HiltAndroidTest
 class MainActivityTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
     @Test
     fun launch_main_activity_will_show_search_bar() {
