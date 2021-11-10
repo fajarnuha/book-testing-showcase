@@ -7,8 +7,8 @@ import com.tokopedia.workshopnovember.entity.FavoriteEntity
 import com.tokopedia.workshopnovember.entity.search.Doc
 import com.tokopedia.workshopnovember.entity.search.SearchResponse
 import io.mockk.*
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
