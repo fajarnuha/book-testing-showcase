@@ -3,6 +3,7 @@ package com.tokopedia.workshopnovember
 import org.hamcrest.CoreMatchers
 import org.junit.Assert.*
 import org.junit.Test
+import org.hamcrest.MatcherAssert
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -20,7 +21,7 @@ class ExampleUnitTest {
         val actual = cafe.greeting()
 
         //then
-        assertThat(
+        MatcherAssert.assertThat(
             actual, CoreMatchers.containsString("Hey")
         )
     }
