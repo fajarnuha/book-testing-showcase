@@ -1,17 +1,13 @@
 package com.tokopedia.workshopnovember
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.annotation.VisibleForTesting
-import androidx.test.espresso.idling.CountingIdlingResource
+import androidx.appcompat.app.AppCompatActivity
 import com.tokopedia.workshopnovember.ui.detail.DetailFragment
 import com.tokopedia.workshopnovember.ui.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), Navigation, IdlingResourceHolder {
-
-    private var countingIdlingResource: CountingIdlingResource? = null
+class MainActivity : AppCompatActivity(), Navigation {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,13 +24,5 @@ class MainActivity : AppCompatActivity(), Navigation, IdlingResourceHolder {
             .replace(R.id.container, DetailFragment.newInstance(id))
             .addToBackStack(null)
             .commit()
-    }
-
-    override fun getCountingIdlingResource(): CountingIdlingResource? {
-        if (countingIdlingResource == null) {
-            countingIdlingResource = CountingIdlingResource("BookIdlingResource")
-        }
-
-        return countingIdlingResource
     }
 }

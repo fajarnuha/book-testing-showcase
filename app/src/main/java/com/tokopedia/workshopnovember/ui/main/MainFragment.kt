@@ -14,8 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.tokopedia.workshopnovember.IdlingResourceHolder
-import com.tokopedia.workshopnovember.MainActivity
 import com.tokopedia.workshopnovember.Navigation
 import com.tokopedia.workshopnovember.R
 import com.tokopedia.workshopnovember.getViewVisibility
@@ -33,14 +31,10 @@ class MainFragment : Fragment() {
     private val mAdapter = SearchResultAdapter(listener = ::onClickItem)
     private val mFavAdapter = SearchResultAdapter(listener = ::onClickItem)
     private var navListener: Navigation? = null
-    private var idlingResourceHolder: IdlingResourceHolder? = null
 
     override fun onAttach(context: Context) {
         if (context is Navigation) {
             navListener = context
-        }
-        if (context is IdlingResourceHolder) {
-            idlingResourceHolder = context
         }
         super.onAttach(context)
     }
@@ -63,7 +57,6 @@ class MainFragment : Fragment() {
         editText.setOnEditorActionListener { v, actionId, event ->
             if (isSearchAction(actionId, event)) {
                 hideKeyboard(context, editText)
-                idlingResourceHolder?.getCountingIdlingResource()?.increment()
                 viewModel.search(v.text.toString())
                 return@setOnEditorActionListener true
             }
@@ -94,7 +87,6 @@ class MainFragment : Fragment() {
             recyclerView.visibility = getViewVisibility(list.isNotEmpty())
             favBookView.visibility = getViewVisibility(list.isEmpty())
             mAdapter.submitList(list)
-            idlingResourceHolder?.getCountingIdlingResource()?.decrement()
         }
 
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
