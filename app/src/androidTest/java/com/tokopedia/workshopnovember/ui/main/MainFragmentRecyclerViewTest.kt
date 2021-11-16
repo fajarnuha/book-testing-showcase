@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.IdlingResource
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.pressImeActionButton
 import androidx.test.espresso.action.ViewActions.typeText
@@ -14,13 +15,13 @@ import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.tokopedia.workshopnovember.MainActivity
 import com.tokopedia.workshopnovember.R
-import com.tokopedia.workshopnovember.RecyclerViewIdlingResource
 import com.tokopedia.workshopnovember.di.NetworkModule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
-import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -31,22 +32,30 @@ class MainFragmentRecyclerViewTest {
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
 
-    private var recyclerView: RecyclerView? = null
+    private var idlingResource: IdlingResource? = null
+
+    @Before
+    fun setUp() {
+        launchActivity<MainActivity>().onActivity { activity ->
+            idlingResource = activity.getCountingIdlingResource()
+            IdlingRegistry.getInstance().register(idlingResource)
+        }
+    }
+
+    @After
+    fun tearDown() {
+        idlingResource?.let {
+            IdlingRegistry.getInstance().unregister(it)
+        }
+    }
 
     @Test
     fun click_on_a_book_item_will_go_to_detail() {
-        launchActivity<MainActivity>().onActivity {
-            recyclerView = it.findViewById(R.id.rv)
-        }
-
         onView(withId(R.id.et_search))
             .perform(typeText("lord of the rings"))
             .perform(pressImeActionButton())
 
-        val recyclerViewIdlingResource = RecyclerViewIdlingResource(recyclerView!!)
-        IdlingRegistry.getInstance().register(recyclerViewIdlingResource)
-
-        onView(`is`(recyclerView))
+        onView(withId(R.id.rv))
             .perform(
                 actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
@@ -58,7 +67,5 @@ class MainFragmentRecyclerViewTest {
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
         onView(withId(R.id.cb_fav))
             .check(matches(allOf(isDisplayed(), isNotChecked())))
-
-        IdlingRegistry.getInstance().unregister(recyclerViewIdlingResource)
     }
 }

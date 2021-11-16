@@ -9,6 +9,8 @@ import kotlinx.coroutines.delay
 class FakeBookApi : BookApi {
 
     override suspend fun search(query: String): SearchResponse {
+        // Having a delay to simulate real network (network won't have 0ms latency)
+        delay(1_500)
         return Gson().fromJson(
             FileReader.readStringFromFile("mock_search_lord_response.json"),
             SearchResponse::class.java
