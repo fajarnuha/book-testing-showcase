@@ -2,9 +2,9 @@ package com.tokopedia.workshopnovember
 
 import com.google.gson.Gson
 import com.tokopedia.workshopnovember.data.cloud.BookApi
-import com.tokopedia.workshopnovember.entity.isbn.Author
 import com.tokopedia.workshopnovember.entity.isbn.IsbnResponse
 import com.tokopedia.workshopnovember.entity.search.SearchResponse
+import kotlinx.coroutines.delay
 
 class FakeBookApi : BookApi {
 
@@ -16,10 +16,12 @@ class FakeBookApi : BookApi {
     }
 
     override suspend fun get(id: String): IsbnResponse {
-        return IsbnResponse(
-            isbn13 = listOf("12345"),
-            title = "Lord of the Rings",
-            authors = listOf(Author("JK Rowling"))
+        // Having a delay to simulate real network (network won't have 0ms latency)
+        delay(50)
+        return Gson().fromJson(
+            FileReader.readStringFromFile("mock_detail_harry_response.json"),
+            IsbnResponse::class.java
         )
     }
+
 }

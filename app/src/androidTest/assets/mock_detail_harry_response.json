@@ -1,0 +1,50 @@
+{
+  "publishers": [
+    "Bloomsbury UK"
+  ],
+  "last_modified": {
+    "type": "/type/datetime",
+    "value": "2020-11-21T16:51:20.288461"
+  },
+  "source_records": [
+    "amazon:074757362X"
+  ],
+  "title": "Harry Potter and the Prisoner of Azkaban",
+  "notes": {
+    "type": "/type/text",
+    "value": "Source title: Harry Potter and the Prisoner of Azkaban (Book 3)"
+  },
+  "number_of_pages": 317,
+  "isbn_13": [
+    "9780747573623"
+  ],
+  "covers": [
+    10509997
+  ],
+  "created": {
+    "type": "/type/datetime",
+    "value": "2020-11-11T05:25:45.038812"
+  },
+  "physical_format": "hardcover",
+  "full_title": "Harry Potter and the Prisoner of Azkaban",
+  "isbn_10": [
+    "074757362X"
+  ],
+  "publish_date": "Jul 01, 2008",
+  "key": "/books/OL30940862M",
+  "authors": [
+    {
+      "key": "/authors/OL23919A"
+    }
+  ],
+  "latest_revision": 3,
+  "works": [
+    {
+      "key": "/works/OL82566W"
+    }
+  ],
+  "type": {
+    "key": "/type/edition"
+  },
+  "revision": 3
+}

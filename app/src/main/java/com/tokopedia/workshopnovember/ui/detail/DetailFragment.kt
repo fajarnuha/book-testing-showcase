@@ -4,10 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -35,6 +32,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
         requireArguments().getString(ARGS_ID).let {
             requireNotNull(it)
             viewModel.setId(it)
+            Log.d("DetailFragment", "$it")
         }
     }
 

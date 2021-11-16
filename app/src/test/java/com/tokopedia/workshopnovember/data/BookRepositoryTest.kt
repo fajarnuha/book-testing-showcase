@@ -14,17 +14,13 @@ import org.junit.Test
 
 class BookRepositoryTest {
 
-    private lateinit var api: BookApi
-    private lateinit var fakeFavDao: FavDao
-    private lateinit var fakeBookDao: BookDao
+    private val api: BookApi= mockk()
+    private val fakeFavDao: FavDao = mockk()
+    private val fakeBookDao: BookDao = mockk()
     private lateinit var sut: BookRepository
 
     @Before
     fun setup() {
-        api = mockk()
-        fakeFavDao = mockk()
-        fakeBookDao = mockk()
-
         sut = BookRepository(api, fakeBookDao, fakeFavDao)
     }
 
