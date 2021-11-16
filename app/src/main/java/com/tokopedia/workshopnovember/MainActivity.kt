@@ -1,7 +1,7 @@
 package com.tokopedia.workshopnovember
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import com.tokopedia.workshopnovember.ui.detail.DetailFragment
 import com.tokopedia.workshopnovember.ui.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
