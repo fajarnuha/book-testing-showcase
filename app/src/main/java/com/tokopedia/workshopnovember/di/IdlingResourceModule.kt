@@ -1,6 +1,7 @@
 package com.tokopedia.workshopnovember.di
 
 import androidx.test.espresso.idling.CountingIdlingResource
+import com.tokopedia.workshopnovember.utils.SimpleIdlingResource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +13,6 @@ object IdlingResourceModule {
 
     @Provides
     fun provideCountingIdlingResource(): CountingIdlingResource {
-        return CountingIdlingResource("BookShowcase")
+        return SimpleIdlingResource.countingIdlingResource
     }
 }

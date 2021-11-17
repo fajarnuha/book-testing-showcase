@@ -9,15 +9,13 @@ import androidx.test.espresso.action.ViewActions.pressImeActionButton
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
-import androidx.test.espresso.idling.CountingIdlingResource
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.tokopedia.workshopnovember.MainActivity
 import com.tokopedia.workshopnovember.R
-import com.tokopedia.workshopnovember.di.IdlingResourceModule
 import com.tokopedia.workshopnovember.di.NetworkModule
-import dagger.hilt.android.testing.BindValue
+import com.tokopedia.workshopnovember.utils.SimpleIdlingResource
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -27,25 +25,21 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-@UninstallModules(NetworkModule::class, IdlingResourceModule::class)
+@UninstallModules(NetworkModule::class)
 @HiltAndroidTest
 class MainFragmentRecyclerViewTest {
 
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
 
-    @BindValue
-    @JvmField
-    val idlingResource = CountingIdlingResource("BookShowcase")
-
     @Before
     fun setUp() {
-        IdlingRegistry.getInstance().register(idlingResource)
+        IdlingRegistry.getInstance().register(SimpleIdlingResource.countingIdlingResource)
     }
 
     @After
     fun tearDown() {
-        IdlingRegistry.getInstance().unregister(idlingResource)
+        IdlingRegistry.getInstance().unregister(SimpleIdlingResource.countingIdlingResource)
     }
 
     @Test
