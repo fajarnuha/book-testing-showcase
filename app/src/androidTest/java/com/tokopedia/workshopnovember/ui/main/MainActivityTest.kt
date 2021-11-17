@@ -7,7 +7,6 @@ import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import com.tokopedia.workshopnovember.FakeBookApi
 import com.tokopedia.workshopnovember.MainActivity
 import com.tokopedia.workshopnovember.R
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -36,7 +35,5 @@ class MainActivityTest {
         onView(withId(R.id.et_search))
             .perform(typeText("harry"))
             .perform(pressImeActionButton())
-
-        Thread.sleep(10_000)
     }
 }
