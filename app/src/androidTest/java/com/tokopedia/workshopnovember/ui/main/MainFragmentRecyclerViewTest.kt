@@ -14,18 +14,15 @@ import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.tokopedia.workshopnovember.MainActivity
 import com.tokopedia.workshopnovember.R
-import com.tokopedia.workshopnovember.di.NetworkModule
 import com.tokopedia.workshopnovember.utils.SimpleIdlingResource
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
 import org.hamcrest.Matchers.allOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-@UninstallModules(NetworkModule::class)
 @HiltAndroidTest
 class MainFragmentRecyclerViewTest {
 
