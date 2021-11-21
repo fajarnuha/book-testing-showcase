@@ -45,27 +45,7 @@ class DetailViewModelTest {
 
     @Test
     fun `when open detail book should return result`()  {
-        //given
-        val bookId = "12345"
-        val bookEntity = BookEntity(
-            id = bookId,
-            isbn = "abc",
-            src = "gramedia",
-            title = "xyz",
-            author = "Josh Barkan",
-            timestamp = 123456L
-        )
-        coEvery { repository.getBookById(bookId) } returns bookEntity
-        every { repository.getFavorites() } returns flowOf(listOf())
-
-        //when
-        detailViewModel.setId(bookId)
-
-        //then
-        verifySequence {
-            observer.onChanged(DetailState.Loading)
-            observer.onChanged(DetailState.Detail(bookEntity, false))
-        }
+        TODO("Not yet implemented")
     }
 
     @Test
