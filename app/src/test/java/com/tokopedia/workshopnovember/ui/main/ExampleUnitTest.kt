@@ -1,9 +1,9 @@
 package com.tokopedia.workshopnovember.ui.main
 
-import org.hamcrest.Matchers
-import org.junit.Test
-
+import org.hamcrest.CoreMatchers
 import org.junit.Assert.*
+import org.junit.Test
+import org.hamcrest.MatcherAssert
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -21,8 +21,8 @@ class ExampleUnitTest {
         val actual = cafe.greeting()
 
         //then
-        assertThat(
-            actual, Matchers.containsString("Hey")
+        MatcherAssert.assertThat(
+            actual, CoreMatchers.containsString("Hey")
         )
     }
 
@@ -36,7 +36,7 @@ class ExampleUnitTest {
         val actual = cafe.remainingCoffee()
 
         //then
-        assertEquals(19, actual)
+        assertEquals(7, actual)
     }
 
     @Test
