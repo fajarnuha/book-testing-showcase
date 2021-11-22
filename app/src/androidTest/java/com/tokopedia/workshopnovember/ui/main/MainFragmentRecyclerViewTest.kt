@@ -34,4 +34,35 @@ class MainFragmentRecyclerViewTest {
 
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
+
+    @Before
+    fun setUp() {
+        IdlingRegistry.getInstance().register(SimpleIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(SimpleIdlingResource.countingIdlingResource)
+    }
+
+    @Test
+    fun click_on_a_book_item_will_go_to_detail() {
+        launchActivity<MainActivity>()
+
+        onView(withId(R.id.et_search))
+            .perform(typeText("lord of the rings"))
+            .perform(pressImeActionButton())
+
+        onView(withId(R.id.rv))
+            .perform(
+                actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                    0,
+                    click()
+                )
+            )
+
+        onView(withId(R.id.iv_cover)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
+        onView(withId(R.id.cb_fav)).check(matches(allOf(isDisplayed(), isNotChecked())))
+    }
 }
