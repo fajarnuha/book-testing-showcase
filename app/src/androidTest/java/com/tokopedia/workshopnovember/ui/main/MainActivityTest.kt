@@ -22,11 +22,22 @@ class MainActivityTest {
 
     @Test
     fun launch_main_activity_will_show_search_bar() {
+        launchActivity<MainActivity>()
 
+        onView(withId(R.id.et_search))
+            .check(matches(isDisplayed()))
+
+        Thread.sleep(3_000)
     }
 
     @Test
     fun typing_on_search_bar_and_press_enter() {
+        launchActivity<MainActivity>()
 
+        onView(withId(R.id.et_search))
+            .perform(typeText("harry"))
+            .perform(pressImeActionButton())
+
+        Thread.sleep(3_000)
     }
 }
