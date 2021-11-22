@@ -5,12 +5,12 @@ import org.junit.Test
 
 class BasicTest {
     @Test
-    fun `is even number`() {
+    fun `given is 2 is even number`() {
         TODO("Not yet implemented")
     }
 
     @Test
-    fun `is odd number`() {
+    fun `given is 7 is even number`() {
         TODO("Not yet implemented")
     }
 }
