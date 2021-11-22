@@ -1,6 +1,6 @@
 package com.tokopedia.workshopnovember.ui.main
 
-import org.hamcrest.Matchers
+import org.hamcrest.core.StringContains.containsString
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -22,7 +22,7 @@ class ExampleUnitTest {
 
         //then
         assertThat(
-            actual, Matchers.containsString("Hey")
+            actual, containsString("Hey")
         )
     }
 
