@@ -19,6 +19,13 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class MainViewModelTest {
 
+    @ExperimentalCoroutinesApi
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
+
+    @get:Rule
+    var instantExecutorRule = InstantTaskExecutorRule()
+
     lateinit var repo: BookRepository
     lateinit var sut: MainViewModel
 
@@ -30,4 +37,21 @@ class MainViewModelTest {
         sut = MainViewModel(repo)
     }
 
+    @Test
+    fun `search will show loading before showing results`() {
+        val bookListObserver = Observer<List<BookEntity>> { }
+        sut.result.observeForever(bookListObserver)
+
+        mainCoroutineRule.pauseDispatcher()
+
+        sut.search("Harry")
+
+        assertThat(sut.loading.getOrAwaitValue(), `is`(true))
+
+        mainCoroutineRule.resumeDispatcher()
+
+        assertThat(sut.loading.getOrAwaitValue(), `is`(false))
+
+        sut.result.removeObserver(bookListObserver)
+    }
 }
