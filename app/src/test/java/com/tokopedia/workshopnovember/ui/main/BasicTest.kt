@@ -6,23 +6,23 @@ import org.junit.Test
 
 class BasicTest {
     @Test
-    fun `is even number`() {
+    fun `given is 2 is even number`() {
+        val number = 2
+        val magicNumbers = MagicNumbers()
+
+        val actual = magicNumbers.isEven(number)
+
+        assertEquals(true, actual)
+    }
+
+    @Test
+    fun `given is 7 is even number`() {
         val number = 7
         val magicNumbers = MagicNumbers()
 
         val actual = magicNumbers.isEven(number)
 
         assertEquals(false, actual)
-    }
-
-    @Test
-    fun `is odd number`() {
-        val number = 3
-        val magicNumbers = MagicNumbers()
-
-        val actual = magicNumbers.isEven(number)
-
-        assertEquals(true, actual)
     }
 }
 
