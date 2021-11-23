@@ -1,4 +1,4 @@
-package com.tokopedia.workshopnovember
+package com.tokopedia.workshopnovember.ui.main
 
 import org.hamcrest.CoreMatchers
 import org.junit.Assert.*
