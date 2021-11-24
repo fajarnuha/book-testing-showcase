@@ -18,4 +18,6 @@ interface FavDao {
     @Query("DELETE FROM FavoriteEntity WHERE bookId = :id")
     suspend fun delete(id: String)
 
+    @Query("DELETE FROM FavoriteEntity")
+    fun deleteAll()
 }
