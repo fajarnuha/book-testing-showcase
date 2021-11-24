@@ -27,12 +27,8 @@ class MainFragmentRecyclerViewTest {
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
 
-    @Inject
-    lateinit var favDao: FavDao
-
     @Before
     fun setUp() {
-        hiltRule.inject()
         IdlingRegistry.getInstance().register(SimpleIdlingResource.countingIdlingResource)
     }
 
@@ -43,9 +39,6 @@ class MainFragmentRecyclerViewTest {
 
     @Test
     fun add_book_to_favorite() {
-        // Ideally we use orchestrator to clear data, but it's out of our scope
-        favDao.deleteAll()
-
         launchActivity<MainActivity>()
 
         onView(withId(R.id.et_search))
@@ -62,18 +55,5 @@ class MainFragmentRecyclerViewTest {
 
         onView(withId(R.id.iv_cover)).check(matches(isDisplayed()))
         onView(withId(R.id.tv_title)).check(matches(isDisplayed()))
-
-        onView(withId(R.id.cb_fav))
-            .check(matches(allOf(isDisplayed(), isNotChecked())))
-            .perform(click())
-
-        onView(isRoot()).perform(pressBack())
-
-        onView(withId(R.id.et_search))
-            .perform(clearText())
-            .perform(pressImeActionButton())
-
-        onView(withId(R.id.fav_rv))
-            .check(matches(hasDescendant(withText("Harry Potter and the Prisoner of Azkaban"))))
     }
 }
