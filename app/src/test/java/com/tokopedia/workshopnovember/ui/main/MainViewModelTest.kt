@@ -5,7 +5,9 @@ import androidx.lifecycle.Observer
 import com.tokopedia.workshopnovember.MainCoroutineRule
 import com.tokopedia.workshopnovember.data.BookRepository
 import com.tokopedia.workshopnovember.entity.BookEntity
+import com.tokopedia.workshopnovember.entity.search.Doc
 import com.tokopedia.workshopnovember.getOrAwaitValue
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -54,4 +56,15 @@ class MainViewModelTest {
 
         sut.result.removeObserver(bookListObserver)
     }
+
+    @Test
+    fun `given success response when search should emit result`() {
+        coEvery { repo.searchWithQuery(any()) } returns listOf(Doc(title = "Harry Potter"))
+
+        sut.search("harry")
+
+        assertThat(sut.result.getOrAwaitValue().size, `is`(1))
+        assertThat(sut.result.getOrAwaitValue().first().title, `is`("Harry Potter"))
+    }
+
 }
