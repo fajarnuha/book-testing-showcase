@@ -3,6 +3,7 @@ package com.tokopedia.workshopnovember
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tokopedia.workshopnovember.ui.detail.DetailFragment
+import com.tokopedia.workshopnovember.ui.login.LoginFragment
 import com.tokopedia.workshopnovember.ui.main.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity(), Navigation {
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
+                    .replace(R.id.container, LoginFragment())
                     .commitNow()
         }
     }
