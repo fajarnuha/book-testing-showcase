@@ -15,8 +15,7 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(private val repository: BookRepository) : ViewModel() {
 
     private val _id: MutableLiveData<String> = MutableLiveData()
-    private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> = _loading
+
     val state: LiveData<DetailState> = _id.switchMap {
         liveData {
             emit(DetailState.Loading)
