@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor(
     private val _loading: MutableLiveData<Boolean> = MutableLiveData(false)
     val loading: LiveData<Boolean> get() = _loading
 
-    private val _message: SingleLiveEvent<String> = SingleLiveEvent()
+    private val _message: MutableLiveData<String> = MutableLiveData()
     val message: LiveData<String> get() = _message
 
     val favBooks: LiveData<List<BookEntity>> = repo.getFavoritesWithDetail().asLiveData()
