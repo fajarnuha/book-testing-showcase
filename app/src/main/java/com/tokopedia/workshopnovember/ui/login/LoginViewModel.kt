@@ -1,12 +1,13 @@
 package com.tokopedia.workshopnovember.ui.login
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.tokopedia.workshopnovember.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
@@ -23,20 +24,7 @@ class LoginViewModel @Inject constructor(private val repo: LoginRepo) : ViewMode
     private val _errorMsg = SingleLiveEvent<String>()
     val errorMsg: LiveData<String> get() = _errorMsg
 
-    private val _options = MutableLiveData<LoginOptions>()
-    val options: LiveData<LoginOptions> get() = _options
-
-    init {
-        viewModelScope.launch {
-            val opt = try {
-                repo.options()
-            } catch (e: Exception) {
-                LoginOptions.default()
-            }
-            _options.value = opt
-        }
-    }
-
+    val options: LiveData<LoginOptions> = repo.options().asLiveData(viewModelScope.coroutineContext)
 
     fun login(email: String, pass: String) {
         _loading.value = true
@@ -59,7 +47,7 @@ sealed class Result<out T : Any> private constructor() {
 
 data class LoginOptions(val options: List<Int> = listOf(0, 1)) {
     companion object {
-        fun default(): LoginOptions = LoginOptions()
+        fun default(): LoginOptions = LoginOptions(options = listOf(0))
     }
 }
 
@@ -69,9 +57,14 @@ class LoginRepo @Inject constructor() {
         return User(email, pass)
     }
 
-    suspend fun options(): LoginOptions {
-        delay(2000)
-        return LoginOptions()
+    fun options(): Flow<LoginOptions> {
+        return flow {
+            // network
+            delay(2000)
+            emit(LoginOptions())
+        }
+            .catch { e -> e.printStackTrace() }
+            .onStart { emit(LoginOptions.default()) }
     }
 }
 
