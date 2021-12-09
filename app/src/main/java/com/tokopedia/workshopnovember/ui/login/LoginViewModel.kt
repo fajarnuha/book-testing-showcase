@@ -4,45 +4,63 @@ import androidx.lifecycle.*
 import com.tokopedia.workshopnovember.utils.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val repo: LoginRepo) : ViewModel() {
 
-    private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> get() = _loading
+    private val prev: Stack<LoginState> = Stack()
 
-    private val _user = MutableLiveData<User>()
-    val user: LiveData<User> get() = _user
+    private val _state = MutableLiveData<LoginState>()
+    val state: LiveData<LoginState> get() = _state
 
     private val _errorMsg = SingleLiveEvent<String>()
     val errorMsg: LiveData<String> get() = _errorMsg
 
-    val options: LiveData<LoginOptions> = repo.options().asLiveData(viewModelScope.coroutineContext)
+    init {
+        _state.value = LoginState.LoginDisplay()
+        viewModelScope.launch {
+            repo.options().collect {
+                if (_state.value is LoginState.LoginDisplay) {
+                    _state.value = (_state.value as LoginState.LoginDisplay).copy(options = it)
+                }
+                // ignore if it is not in LoginDisplay state
+            }
+        }
+
+    }
 
     fun login(email: String, pass: String) {
-        _loading.value = true
+        prev.push(_state.value)
+        _state.value = LoginState.Loading
         viewModelScope.launch {
             try {
                 val user = repo.login(email, pass)
-                _user.value = user
+                _state.value = LoginState.UserDisplay(user)
             } catch (e: Exception) {
                 _errorMsg.value = e.message
+                _state.value = prev.pop()
             }
-            _loading.value = false
         }
     }
 }
 
-sealed class Result<out T : Any> private constructor() {
-    data class Success<out T : Any>(val data: T) : Result<T>()
-    data class Fail(val throwable: Throwable) : Result<Nothing>()
+sealed class LoginState {
+
+    data class UserDisplay(
+        val user: User
+    ) : LoginState()
+
+    data class LoginDisplay(
+        val form: Pair<String, String> = "" to "",
+        val options: LoginOptions = LoginOptions.default()
+    ) : LoginState()
+
+    object Loading : LoginState()
 }
 
 data class LoginOptions(val options: List<Int> = listOf(0, 1)) {
@@ -50,6 +68,7 @@ data class LoginOptions(val options: List<Int> = listOf(0, 1)) {
         fun default(): LoginOptions = LoginOptions(options = listOf(0))
     }
 }
+
 
 class LoginRepo @Inject constructor() {
     suspend fun login(email: String, pass: String): User {
