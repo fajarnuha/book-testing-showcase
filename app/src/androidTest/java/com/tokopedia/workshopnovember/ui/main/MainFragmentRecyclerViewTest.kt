@@ -42,7 +42,7 @@ class MainFragmentRecyclerViewTest {
     }
 
     @Test
-    fun add_book_to_favorite() {
+    fun when_add_book_to_favorite_the_book_should_be_shown_in_favourite_list() {
         // Ideally we use orchestrator to clear data, but it's out of our scope
         favDao.deleteAll()
 
