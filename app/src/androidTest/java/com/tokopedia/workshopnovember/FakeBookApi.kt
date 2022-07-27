@@ -11,7 +11,7 @@ class FakeBookApi : BookApi {
         return when(query) {
             "" -> SearchResponse()
             else -> Gson().fromJson(
-                FileReader.readStringFromFile("mock_search_lord_response.json"),
+                FileReader.readStringFromFile("mock_search_harry_potter.json"),
                 SearchResponse::class.java
             )
         }

@@ -6,6 +6,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItem
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.tokopedia.workshopnovember.MainActivity
@@ -15,6 +16,7 @@ import com.tokopedia.workshopnovember.utils.SimpleIdlingResource
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.containsString
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -49,15 +51,12 @@ class MainFragmentRecyclerViewTest {
         launchActivity<MainActivity>()
 
         onView(withId(R.id.et_search))
-            .perform(typeText("lord of the rings"))
+            .perform(typeText("harry potter"))
             .perform(pressImeActionButton())
 
         onView(withId(R.id.rv))
             .perform(
-                actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                    0,
-                    click()
-                )
+                actionOnItem<RecyclerView.ViewHolder>(hasDescendant(withText(containsString("Azkaban"))), click())
             )
 
         onView(withId(R.id.iv_cover)).check(matches(isDisplayed()))
