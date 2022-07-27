@@ -56,7 +56,9 @@ class MainFragmentRecyclerViewTest {
 
         onView(withId(R.id.rv))
             .perform(
-                actionOnItem<RecyclerView.ViewHolder>(hasDescendant(withText(containsString("Azkaban"))), click())
+                actionOnItem<RecyclerView.ViewHolder>(
+                    hasDescendant(withText(containsString("Azkaban"))), click()
+                )
             )
 
         onView(withId(R.id.iv_cover)).check(matches(isDisplayed()))
