@@ -29,12 +29,8 @@ class MainFragmentRecyclerViewTest {
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
 
-    @Inject
-    lateinit var favDao: FavDao
-
     @Before
     fun setUp() {
-        hiltRule.inject()
         IdlingRegistry.getInstance().register(SimpleIdlingResource.countingIdlingResource)
     }
 
@@ -45,8 +41,6 @@ class MainFragmentRecyclerViewTest {
 
     @Test
     fun when_add_book_to_favorite_the_book_should_be_shown_in_favourite_list() {
-        // Ideally we use orchestrator to clear data, but it's out of our scope
-        favDao.deleteAll()
 
         launchActivity<MainActivity>()
 
